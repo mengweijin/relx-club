@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.mengweijin</groupId>
+		<artifactId>quickboot-parent</artifactId>
+		<version>1.0.16</version>
+		<!--<relativePath/>-->
+	</parent>
+
+	<artifactId>relx-club-invoicing-management-system</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>relx-club-invoicing-management-system</name>
+	<description>RELX Club Invoicing management system</description>
+
+	<properties>
+
+
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.github.mengweijin</groupId>
+			<artifactId>quickboot-mybatis-plus</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.mengweijin</groupId>
+			<artifactId>quickboot-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>com.github.mengweijin</groupId>
+				<artifactId>code-generator-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<configuration>
+					<parameters>
+						<tables>relx_goods</tables>
+						<tablePrefix>relx_</tablePrefix>
+						<superEntityClass>com.github.mengweijin.quickboot.mybatis.BaseEntity</superEntityClass>
+					</parameters>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<delimiters>@</delimiters>
+					<useDefaultDelimiters>false</useDefaultDelimiters>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${springboot.version}</version>
+				<configuration>
+					<fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<!-- 将所有依赖包全部打到一个Jar包里面 -->
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<!-- 最终打出来的Jar的名称 -->
+		<!--<finalName>${project.artifactId}</finalName>-->
+	</build>
+
+</project>
