@@ -6,7 +6,7 @@
 		<groupId>com.github.mengweijin</groupId>
 		<artifactId>quickboot-parent</artifactId>
 		<version>1.0.16</version>
-		<!--<relativePath/>-->
+		<relativePath/>
 	</parent>
 
 	<artifactId>relx-club-invoicing-management-system</artifactId>
@@ -34,7 +34,6 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>
@@ -78,7 +77,7 @@
 				<version>1.0.1</version>
 				<configuration>
 					<parameters>
-						<tables>relx_goods</tables>
+						<tables>RELX_GOODS,RELX_GOODS_TYPE</tables>
 						<tablePrefix>relx_</tablePrefix>
 						<superEntityClass>com.github.mengweijin.quickboot.mybatis.BaseEntity</superEntityClass>
 					</parameters>
