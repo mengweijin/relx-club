@@ -43,7 +43,7 @@ public class Goods extends BaseEntity {
      * 库存数量
      */
     @TableField("AMOUNT")
-    private Integer amount;
+    private Double amount;
 
     /**
      * 单位

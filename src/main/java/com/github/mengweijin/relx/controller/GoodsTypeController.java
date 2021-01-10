@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.List;
+
 /**
  * <p>
  * 商品类型表 Controller
@@ -62,6 +64,11 @@ public class GoodsTypeController {
     @GetMapping
     public IPage<GoodsType> getPage(IPage<GoodsType> page, @Valid GoodsType goodsType) {
         return goodsTypeService.page(page, new QueryWrapper<>(goodsType));
+    }
+
+    @GetMapping("/all")
+    public List<GoodsType> getAll() {
+        return goodsTypeService.list();
     }
 
     /**

@@ -1,14 +1,16 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header></el-header>
+      <el-header>RELX 悦享电子烟 享受健康生活</el-header>
 
       <el-container>
 
-        <el-aside width="350px"></el-aside>
+        <el-aside width="210px">
+          <GoodsType />
+        </el-aside>
 
         <el-main>
-          <Goods msg="Welcome to Goods index."/>
+          <Goods />
         </el-main>
 
       </el-container>
@@ -20,11 +22,13 @@
 
 <script>
 import Goods from './components/Goods.vue'
+import GoodsType from './components/GoodsType.vue'
 
 export default {
   name: 'App',
   components: {
-    Goods
+    Goods,
+    GoodsType
   }
 }
 </script>
