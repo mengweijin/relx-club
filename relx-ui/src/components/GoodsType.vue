@@ -15,8 +15,6 @@
 </template>
 
 <script>
-  import {getCurrentInstance} from 'vue';
-
   export default {
     name: 'GoodsType',
     props: {
@@ -33,8 +31,7 @@
     methods: {
       loadTreeData() {
         let _this = this;
-        const {ctx} = getCurrentInstance()
-        ctx.$http.get('/goods-type/all').then(function (response) {
+        this.$http.get('/goods-type/all').then(function (response) {
             _this.treeDataList = response
           }
         )

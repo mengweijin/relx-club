@@ -16,12 +16,56 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID,
-        CREATE_BY,
-        CREATE_TIME,
-        UPDATE_BY,
-        UPDATE_TIME,
-        NAME, GOODS_TYPE_ID, AMOUNT, UNIT
+        t.ID,
+        t.CREATE_BY,
+        t.CREATE_TIME,
+        t.UPDATE_BY,
+        t.UPDATE_TIME,
+        t.NAME,
+        t.GOODS_TYPE_ID,
+        t.AMOUNT,
+        t.UNIT
+    </sql>
+    <!-- 查询条件 -->
+    <sql id="Where_Condition">
+        <where>
+            <if test="p.name != null and p.name != ''">
+                and t.NAME = #{p.name}
+            </if>
+            <if test="p.goodsTypeId != null">
+                and t.GOODS_TYPE_ID = #{p.goodsTypeId}
+            </if>
+            <if test="p.amount != null">
+                and t.AMOUNT = #{p.amount}
+            </if>
+            <if test="p.unit != null and p.unit != ''">
+                and t.UNIT = #{p.unit}
+            </if>
+            <if test="p.id != null">
+                and t.ID = #{p.id}
+            </if>
+            <if test="p.createBy != null and p.createBy != ''">
+                and t.CREATE_BY = #{p.createBy}
+            </if>
+            <if test="p.createTime != null">
+                and t.CREATE_TIME = #{p.createTime}
+            </if>
+            <if test="p.updateBy != null and p.updateBy != ''">
+                and t.UPDATE_BY = #{p.updateBy}
+            </if>
+            <if test="p.updateTime != null">
+                and t.UPDATE_TIME = #{p.updateTime}
+            </if>
+        </where>
     </sql>
 
+    <select id="selectPageVO" resultType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/> ,
+        t2.NAME as goods_type_name
+
+        from RELX_GOODS t
+        left join RELX_GOODS_TYPE t2 on t.GOODS_TYPE_ID = t2.id
+        <include refid="Where_Condition"/>
+    </select>
 </mapper>

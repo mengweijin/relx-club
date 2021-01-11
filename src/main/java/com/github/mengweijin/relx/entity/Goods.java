@@ -50,5 +50,4 @@ public class Goods extends BaseEntity {
      */
     @TableField("UNIT")
     private String unit;
-
 }

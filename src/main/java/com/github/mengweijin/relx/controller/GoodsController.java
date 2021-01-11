@@ -2,6 +2,7 @@ package com.github.mengweijin.relx.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.mengweijin.relx.entity.Goods;
+import com.github.mengweijin.relx.mapper.GoodsMapper;
 import com.github.mengweijin.relx.service.GoodsService;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.Valid;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -39,6 +42,9 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+    @Autowired
+    private GoodsMapper goodsMapper;
+
     /**
      * <p>
      * Get Goods by id
@@ -60,8 +66,8 @@ public class GoodsController {
      * @return IPage<Goods>
      */
     @GetMapping
-    public IPage<Goods> getPage(IPage<Goods> page, @Valid Goods goods) {
-        return goodsService.page(page, new QueryWrapper<>(goods));
+    public IPage<Map<String, Object>> getPage(IPage<Map<String, Object>> page, @Valid Goods goods) {
+        return goodsMapper.selectPageVO(page, goods);
     }
 
     /**
