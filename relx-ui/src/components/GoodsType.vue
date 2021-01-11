@@ -1,6 +1,9 @@
 <template>
   <div>
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+    <el-button-group style="margin-bottom: 10px; margin-top: 10px;">
+      <el-button @click="handleAddClick()" type="primary" plain  icon="el-icon-plus">添加商品类型</el-button>
+    </el-button-group>
+    <el-radio-group v-model="isCollapse" style="margin-bottom: 10px;">
       <el-radio-button :label="false">展开</el-radio-button>
       <el-radio-button :label="true">收起</el-radio-button>
     </el-radio-group>
@@ -35,6 +38,10 @@
             _this.treeDataList = response
           }
         )
+      },
+
+      handleAddClick() {
+
       }
     },
 
