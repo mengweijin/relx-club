@@ -7,10 +7,10 @@
       <el-radio-button :label="false">展开</el-radio-button>
       <el-radio-button :label="true">收起</el-radio-button>
     </el-radio-group>
-    <el-menu class="el-menu-vertical-demo" :collapse="isCollapse">
-      <el-menu-item v-for="(item, idx) in treeDataList" v-bind:key="item.id" v-bind:index="idx.toString()">
+    <el-menu router class="el-menu-vertical-demo" :collapse="isCollapse">
+      <el-menu-item v-for="item in treeDataList" v-bind:key="item.id" v-bind:index="goods/item.id">
         <i class="el-icon-menu"></i>
-        <template #title>{{item.name}}</template>
+          <template #title>{{item.name}}</template>
       </el-menu-item>
     </el-menu>
     

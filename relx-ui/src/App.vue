@@ -1,35 +1,13 @@
 <template>
   <div id="app">
-    <el-container>
-      <el-header>RELX 悦享电子烟 享受健康生活</el-header>
-
-      <el-container>
-
-        <el-aside width="210px">
-          <GoodsType />
-        </el-aside>
-
-        <el-main>
-          <Goods />
-        </el-main>
-
-      </el-container>
-
-    </el-container>
-    
+    <router-view />
   </div>
 </template>
 
 <script>
-import Goods from './components/Goods.vue'
-import GoodsType from './components/GoodsType.vue'
 
 export default {
-  name: 'App',
-  components: {
-    Goods,
-    GoodsType
-  }
+  name: 'App'
 }
 </script>
 

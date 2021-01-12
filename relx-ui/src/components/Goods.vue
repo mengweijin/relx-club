@@ -16,8 +16,8 @@
       <el-table-column prop="name" label="名称"> </el-table-column>
       <el-table-column prop="amount" label="库存数量" width="120"> </el-table-column>
       <el-table-column prop="unit" label="单位" width="80"> </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" width="240"> </el-table-column>
-      <el-table-column prop="updateTime" label="更新时间" width="240"> </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
+      <el-table-column prop="updateTime" label="更新时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
       <el-table-column fixed="right" label="操作"  width="120">
         <template #default="scope">
           <el-button @click.prevent="editRow(scope.row)" type="text" size="small"> 编辑 </el-button>
@@ -43,6 +43,7 @@
     name: 'Goods',
     data: function() {
       return {
+        goodsTypeId: undefined,
         loading: true,
         tableDataList: [],
         currentPage: 1,
@@ -54,7 +55,7 @@
     methods: {
       loadTableData(current, size) {
         let _this = this;
-        this.$http.get('/goods', {current: current, size: size}).then(function (response) {
+        this.$http.get('/goods', {current: current, size: size, id: this.goodsTypeId}).then(function (response) {
             _this.tableDataList = response.dataList
             _this.total = response.total
             _this.loading = false
@@ -78,10 +79,17 @@
 
       deleteRow(index, rows) {
         rows.splice(index, 1);
+      },
+
+      dateTimeFormat(row, column) {
+        let date = row[column.property]
+        if(date == undefined) {return ''}
+        return this.$dayjs(date).format("YYYY-MM-DD HH:mm:ss")
       }
     },
 
     created: function() {
+      this.goodsTypeId = this.$route.params.goodsTypeId
       this.loadTableData(this.currentPage, this.pageSize);
     }
   }
