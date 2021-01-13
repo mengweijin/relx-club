@@ -43,7 +43,6 @@
     name: 'Goods',
     data: function() {
       return {
-        goodsTypeId: undefined,
         loading: true,
         tableDataList: [],
         currentPage: 1,
@@ -53,9 +52,9 @@
     },
 
     methods: {
-      loadTableData(current, size) {
+      loadTableData(current, size, goodsTypeId) {
         let _this = this;
-        this.$http.get('/goods', {current: current, size: size, id: this.goodsTypeId}).then(function (response) {
+        this.$http.get('/goods', {current: current, size: size, goodsTypeId: goodsTypeId}).then(function (response) {
             _this.tableDataList = response.dataList
             _this.total = response.total
             _this.loading = false
@@ -89,11 +88,16 @@
     },
 
     created: function() {
-      this.goodsTypeId = this.$route.params.goodsTypeId
       this.loadTableData(this.currentPage, this.pageSize);
+
+      let _this = this
+      this.$watch(() => this.$route.params, (toParams, previousParams) => {
+        if(toParams != previousParams) {
+          _this.loadTableData(this.currentPage, this.pageSize, toParams.goodsTypeId);
+        }
+      })
     }
   }
-
 
 </script>
 
