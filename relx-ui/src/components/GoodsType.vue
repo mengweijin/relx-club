@@ -1,19 +1,22 @@
 <template>
   <div>
-    <el-button-group style="margin-bottom: 10px; margin-top: 10px;">
-      <el-button @click="dialogFormVisible = true" type="primary" plain  icon="el-icon-plus">添加商品类型</el-button>
-    </el-button-group>
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 10px;">
-      <el-radio-button :label="false">展开</el-radio-button>
-      <el-radio-button :label="true">收起</el-radio-button>
-    </el-radio-group>
+    <div style="text-align: center;">
+      <el-button-group style="margin-bottom: 10px; margin-top: 10px;">
+        <el-button @click="dialogFormVisible = true" type="primary" plain  icon="el-icon-plus">添加商品类型</el-button>
+      </el-button-group>
+      <el-radio-group v-model="isCollapse" style="margin-bottom: 10px;">
+        <el-radio-button :label="false">展开</el-radio-button>
+        <el-radio-button :label="true">收起</el-radio-button>
+      </el-radio-group>
+    </div>
+
     <el-menu router class="el-menu-vertical-demo" :collapse="isCollapse">
-      <el-menu-item v-bind:index="'/home'">
+      <el-menu-item v-bind:index="'/'">
         <i class="el-icon-menu"></i>
-        <template #title>全部商品</template>
+        <template #title>全部商品类型</template>
       </el-menu-item>
       <el-menu-item v-for="item in treeDataList" v-bind:key="item.id" v-bind:index="'/goods/' + item.id">
-        <i class="el-icon-delete" style="color: red;" @click="deleteGoodsType(item.id)"></i>
+        <i class="el-icon-delete" style="color: red;" @click="deleteGoodsType(item.id)" v-show="true"></i>
         <i class="el-icon-menu"></i>
         <template #title>{{item.name}}</template>
       </el-menu-item>
@@ -72,10 +75,20 @@
 
       deleteGoodsType(id) {
         let _this = this;
-        this.$http.delete('/goods-type/' + id).then(function () {
+        this.$confirm('此操作将删除该商品类型, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          _this.$http.delete('/goods-type/' + id).then(function () {
+            _this.$router.push('/')
             _this.loadTreeData();
-          }
-        )
+            _this.$message({type: 'success', message: '删除成功!'});
+          })
+        }).catch(() => {
+          _this.$message({type: 'info', message: '已取消删除'});
+        });
+        
       }
     },
 

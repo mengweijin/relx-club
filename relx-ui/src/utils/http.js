@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
-// axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
+axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // axios中请求配置有baseURL选项，表示请求URL公共部分
-// axios.defaults.baseURL = process.env.VUE_APP_RESTFUL_URL
+axios.defaults.baseURL = process.env.VUE_APP_RESTFUL_URL
 
 // 超时
 axios.defaults.timeout = 5000
@@ -11,9 +11,8 @@ axios.defaults.timeout = 5000
 // 添加请求拦截器。在发送请求之前做些什么
 axios.interceptors.request.use(
     config => {
-        config.headers['Content-Type'] = "application/json;charset=utf-8";
-        config.baseURL = process.env.VUE_APP_RESTFUL_URL;
-        
+        //config.headers['Content-Type'] = "application/json;charset=utf-8";
+        //config.baseURL = process.env.VUE_APP_RESTFUL_URL;
         return config;
     },
     error => {
@@ -31,42 +30,34 @@ axios.interceptors.response.use(
     },
     error => {
         // 对响应错误做点什么
+        console.log(error)
         if (error.response.status) {
             switch (error.response.status) {
                 case 400:
-                    console.log(error.response.status + ": " + JSON.stringify(error.response.data))
                     ElMessage.error({ message: error.response.status + " Bad Request", duration: 10000, showClose: true })
                     break;
                 case 401:
-                    console.log(error.response.status + ": " + JSON.stringify(error.response.data))
                     ElMessage.error({ message: error.response.status + " Unauthorized", duration: 10000, showClose: true })
                     break;
                 case 403:
-                    console.log(error.response.status + ": " + JSON.stringify(error.response.data))
                     ElMessage.error({ message: error.response.status + " Forbidden", duration: 10000, showClose: true })
                     break;
                 case 404:
-                    console.log(error.response.status + ": " + JSON.stringify(error.response.data))
                     ElMessage.error({ message: error.response.status + " Not Found", duration: 10000, showClose: true })
                     break;
                 case 405:
-                    console.log(error.response.status + ": " + JSON.stringify(error.response.data))
                     ElMessage.error({ message: error.response.status + " Method Not Allowed", duration: 10000, showClose: true })
                     break;
                 case 406:
-                    console.log(error.response.status + ": " + JSON.stringify(error.response.data))
                     ElMessage.error({ message: error.response.status + " Not Acceptable", duration: 10000, showClose: true })
                     break;
                 case 408:
-                    console.log(error.response.status + ": " + JSON.stringify(error.response.data))
                     ElMessage.error({ message: error.response.status + " Request Timeout", duration: 10000, showClose: true })
                     break;
                 case 500:
-                    console.log(error.response.status + ": " + JSON.stringify(error.response.data))
                     ElMessage.error({ message: error.response.status + " Internal Server Error", duration: 10000, showClose: true })
                     break;
                 default:
-                    console.log(error.response.status + ": " + JSON.stringify(error.response.data))
                     ElMessage.error({ message: error.response.status + ": " + JSON.stringify(error.response.data), duration: 10000, showClose: true })
                     break;
             }
