@@ -2,7 +2,7 @@
 
 #### Description
 悦享电子烟 RELX Club Invoicing management system
-![image](docs/image/relx index.png)
+![image](docs/image/relx-index.png)
 #### Software Architecture
 Software architecture description
 
