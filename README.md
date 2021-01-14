@@ -3,6 +3,8 @@
 #### 介绍
 悦享电子烟 RELX Club Invoicing management system
 
+![image](docs/image/relx index.png)
+
 #### 软件架构
 软件架构说明
 
