@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.github.mengweijin.relx.entity.Goods">
-    <result column="ID" property="id" />
+    <result column="ID" property="id"/>
     <result column="CREATE_BY" property="createBy" />
     <result column="CREATE_TIME" property="createTime" />
     <result column="UPDATE_BY" property="updateBy" />
@@ -59,7 +59,7 @@
         </where>
     </sql>
 
-    <select id="selectPageVO" resultType="java.util.Map">
+    <select id="selectPageVO" resultType="com.github.mengweijin.relx.vo.GoodsVO">
         select
         <include refid="Base_Column_List"/> ,
         t2.NAME as goods_type_name

@@ -62,7 +62,7 @@ public class GoodsTypeController {
      * @return IPage<GoodsType>
      */
     @GetMapping
-    public IPage<GoodsType> getPage(IPage<GoodsType> page, @Valid GoodsType goodsType) {
+    public IPage<GoodsType> getPage(IPage<GoodsType> page, GoodsType goodsType) {
         return goodsTypeService.page(page, new QueryWrapper<>(goodsType));
     }
 

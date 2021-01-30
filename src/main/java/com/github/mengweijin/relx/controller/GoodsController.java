@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.mengweijin.relx.entity.Goods;
 import com.github.mengweijin.relx.mapper.GoodsMapper;
 import com.github.mengweijin.relx.service.GoodsService;
+import com.github.mengweijin.relx.vo.GoodsVO;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.Valid;
 import org.springframework.validation.annotation.Validated;
@@ -66,7 +67,7 @@ public class GoodsController {
      * @return IPage<Goods>
      */
     @GetMapping
-    public IPage<Map<String, Object>> getPage(IPage<Map<String, Object>> page, @Valid Goods goods) {
+    public IPage<GoodsVO> getPage(IPage<GoodsVO> page, Goods goods) {
         return goodsMapper.selectPageVO(page, goods);
     }
 

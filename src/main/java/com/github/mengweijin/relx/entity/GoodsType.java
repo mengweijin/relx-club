@@ -10,6 +10,10 @@ import com.github.mengweijin.quickboot.mybatis.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>
@@ -30,6 +34,8 @@ public class GoodsType extends BaseEntity {
     /**
      * 商品类型名称
      */
+    @NotBlank
+    @Length(min = 1, max = 64)
     @TableField("NAME")
     private String name;
 

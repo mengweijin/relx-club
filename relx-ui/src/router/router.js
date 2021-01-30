@@ -1,24 +1,35 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Layout from '@/components/layout/Index'
+import Layout from '@/components/layout/Layout'
+import LayoutGoods from '@/components/layout/LayoutGoods'
+import LayoutGoodsType from '@/components/layout/LayoutGoodsType'
+import Header from '@/components/Header'
 
 const routes = [
+
     { 
         path: '/', 
         component: Layout,
-        redirect: '/home',
+        redirect: '/goods',
         children: [
             {
-                path: '/home',
+                path: '/goods',
                 components: {
-                    Goods: () => import ('@/components/Goods'),
-                    GoodsType: () => import ('@/components/GoodsType')
+                    Header: () => Header,
+                    default: LayoutGoods
                 }
             },
             {
                 path: '/goods/:goodsTypeId',
                 components: {
-                    Goods: () => import ('@/components/Goods'),
-                    GoodsType: () => import ('@/components/GoodsType')
+                    Header: () => Header,
+                    default: LayoutGoods
+                }
+            },
+            {
+                path: '/goodsType',
+                components: {
+                    Header: () => Header,
+                    default: LayoutGoodsType
                 }
             }
         ]

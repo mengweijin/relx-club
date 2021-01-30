@@ -6,10 +6,16 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.github.mengweijin.quickboot.mybatis.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -30,12 +36,16 @@ public class Goods extends BaseEntity {
     /**
      * 商品名称
      */
+    @NotBlank
+    @Length(min = 1, max = 64)
     @TableField("NAME")
     private String name;
 
     /**
      * 商品类型id
      */
+    @NotNull
+    @JsonSerialize(using = ToStringSerializer.class)
     @TableField("GOODS_TYPE_ID")
     private Long goodsTypeId;
 
