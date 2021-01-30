@@ -1,7 +1,7 @@
 FROM nginx:1.19.6
 MAINTAINER Meng Wei Jin mengweijin.work@foxmail.com
 # 将dist文件中的内容复制到 /usr/share/nginx/html/ 这个目录下面
-COPY dist/  /usr/share/nginx/html/
+COPY ./dist /usr/share/nginx/html/
 # COPY nginx.conf /etc/nginx/nginx.conf
 
 # 设置镜像时区为东八区时区，上海
