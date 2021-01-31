@@ -55,10 +55,10 @@ axios.interceptors.response.use(
                     ElMessage.error({ message: error.response.status + " Request Timeout", duration: 10000, showClose: true })
                     break;
                 case 500:
-                    ElMessage.error({ message: error.response.status + " Internal Server Error", duration: 10000, showClose: true })
+                    ElMessage.error({ message: error.response.status + " Internal Server Error", showClose: true })
                     break;
                 default:
-                    ElMessage.error({ message: error.response.status + ": " + JSON.stringify(error.response.data), duration: 10000, showClose: true })
+                    ElMessage.error({ message: error.response.status + ": " + JSON.stringify(error.response.data), showClose: true })
                     break;
             }
         }

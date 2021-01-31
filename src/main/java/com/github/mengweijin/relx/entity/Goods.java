@@ -60,4 +60,12 @@ public class Goods extends BaseEntity {
      */
     @TableField("UNIT")
     private String unit;
+
+    /**
+     * 逻辑删除
+     */
+    @TableField("DELETED")
+    private Integer deleted;
+
+
 }
