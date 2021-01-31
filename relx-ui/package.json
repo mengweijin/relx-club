@@ -12,6 +12,7 @@
     "core-js": "^3.8.3",
     "dayjs": "^1.10.4",
     "element-plus": "^1.0.1-beta.27",
+    "font-awesome": "^4.7.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.3"
   },
