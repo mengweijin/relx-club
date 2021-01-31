@@ -3,17 +3,22 @@
 #### 介绍
 悦享电子烟 RELX Club Invoicing management system
 
-![image](docs/image/relx-index.png)
-
 #### 软件架构
 软件架构说明
 
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  安装 docker 
+2.  安装 UI：
+````
+$ docker run --name relx-ui -p 80:80 -d registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-ui:latest
+````
+3.  安装后台服务：
+````
+$ docker run --name relx-club-invoicing-management-system -d -p 8081:8081 registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club-invoicing-management-system:latest
+````
+    
 
 #### 使用说明
 
