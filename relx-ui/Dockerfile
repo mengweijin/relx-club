@@ -11,10 +11,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# 设置环境变量为中文环境
-ENV LC_ALL zh_CN.utf8
-
-
 # 使用 Dockerfile 来构建镜像
 # -t 是给镜像取名。
 # 最后有一个点 “.”，表示使用当前路径下的 dockerfile 文件，也可以指定使用其它路径的。
