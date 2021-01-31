@@ -14,21 +14,21 @@ const routes = [
             {
                 path: '/goods',
                 components: {
-                    Header: () => Header,
+                    Header: Header,
                     default: LayoutGoods
                 }
             },
             {
                 path: '/goods/:goodsTypeId',
                 components: {
-                    Header: () => Header,
+                    Header: Header,
                     default: LayoutGoods
                 }
             },
             {
                 path: '/goodsType',
                 components: {
-                    Header: () => Header,
+                    Header: Header,
                     default: LayoutGoodsType
                 }
             }

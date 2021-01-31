@@ -9,20 +9,20 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "core-js": "^3.6.5",
-    "dayjs": "^1.10.3",
-    "element-plus": "^1.0.1-alpha.19",
+    "core-js": "^3.8.3",
+    "dayjs": "^1.10.4",
+    "element-plus": "^1.0.1-beta.27",
     "vue": "^3.0.0",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0",
+    "eslint-plugin-vue": "^7.5.0",
     "vue-cli-plugin-element-plus": "0.0.11"
   },
   "eslintConfig": {
