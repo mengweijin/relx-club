@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button-group style="margin-bottom: 10px; margin-top: 10px;" v-show="false">
+    <el-button-group style="margin-bottom: 10px; margin-top: 10px;">
       <el-button @click="dialogFormVisible = true" type="primary" plain icon="el-icon-plus">添加商品</el-button>
     </el-button-group>
     <el-table 
