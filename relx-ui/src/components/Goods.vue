@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button-group style="margin-bottom: 10px; margin-top: 10px;">
+    <el-button-group style="margin-bottom: 10px; margin-top: 10px;" v-show="false">
       <el-button @click="dialogFormVisible = true" type="primary" plain icon="el-icon-plus">添加商品</el-button>
     </el-button-group>
     <el-table 
@@ -21,7 +21,7 @@
       <el-table-column prop="unit" label="单位" width="80"> </el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
       <el-table-column prop="updateTime" label="更新时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
-      <el-table-column fixed="right" label="操作"  width="120">
+      <el-table-column fixed="right" label="操作" width="120" v-if="false">
         <template #default="scope">
           <el-button @click.prevent="editRow(scope.row)"  type="primary" icon="el-icon-edit" circle size="mini"></el-button>
           <el-button @click.prevent="deleteRow(scope.$index, scope.row, tableDataList)" type="danger" icon="el-icon-delete" circle size="mini"></el-button>
@@ -76,9 +76,9 @@
         goodsTypeList: [],
         dialogFormVisible: false,
         form: {
-          id: '',
-          goodsTypeId: '',
-          name: ''
+          id: null,
+          goodsTypeId: null,
+          name: null
         },
         rules: {
           name: [

@@ -59,9 +59,10 @@
 				<version>1.0.1</version>
 				<configuration>
 					<parameters>
-						<tables>RELX_GOODS,RELX_GOODS_TYPE</tables>
+						<tables>RELX_STOCK,RELX_STOCK_DETAIL</tables>
 						<tablePrefix>relx_</tablePrefix>
 						<superEntityClass>com.github.mengweijin.quickboot.mybatis.BaseEntity</superEntityClass>
+						<outputPackage>com.github.mengweijin.relx</outputPackage>
 					</parameters>
 				</configuration>
 			</plugin>

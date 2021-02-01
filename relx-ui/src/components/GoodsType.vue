@@ -57,7 +57,7 @@
         dialogFormVisible: false,
         form: {
           id: null,
-          name: ''
+          name: null
         },
         rules: {
           name: [
