@@ -1,13 +1,13 @@
-insert into relx_goods_type values(1, '一代套盒', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
-insert into relx_goods_type values(2, '一代烟弹', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
-insert into relx_goods_type values(3, '无限套装', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
-insert into relx_goods_type values(4, '无限烟弹', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
-insert into relx_goods_type values(5, '幻影烟杆', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
-insert into relx_goods_type values(6, '幻影烟弹', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
-insert into relx_goods_type values(7, '二代套盒', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
-insert into relx_goods_type values(8, '二代烟弹', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
-insert into relx_goods_type values(9, '三代套盒', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
-insert into relx_goods_type values(10, '三代烟弹', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(1, '一代套盒', 3, 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(2, '一代烟弹', 3, 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(3, '无限套装', 3, 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(4, '无限烟弹', 3, 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(5, '幻影烟杆', 3, 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(6, '幻影烟弹', 3, 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(7, '二代套盒', 3, 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(8, '二代烟弹', 3, 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(9, '三代套盒', 3, 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
+insert into relx_goods_type values(10, '三代烟弹', 2,  0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());
 
 
 insert into relx_goods values(1, '红色', 1, 0, '盒', 0, 'SYSTEM', CURRENT_TIMESTAMP(), 'SYSTEM', CURRENT_TIMESTAMP());

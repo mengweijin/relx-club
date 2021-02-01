@@ -10,6 +10,7 @@
     <result column="UPDATE_BY" property="updateBy" />
     <result column="UPDATE_TIME" property="updateTime" />
     <result column="NAME" property="name" />
+    <result column="NUMBER_OF_ITEMS" property="numberOfItems" />
     <result column="DELETED" property="deleted" />
     </resultMap>
     <!-- 通用查询结果列 -->
@@ -19,7 +20,7 @@
         CREATE_TIME,
         UPDATE_BY,
         UPDATE_TIME,
-        NAME, DELETED
+        NAME, DELETED, NUMBER_OF_ITEMS
     </sql>
 
 </mapper>

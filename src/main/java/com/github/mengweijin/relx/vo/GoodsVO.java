@@ -12,4 +12,6 @@ import lombok.EqualsAndHashCode;
 public class GoodsVO extends Goods {
 
     private String goodsTypeName;
+
+    private String numberOfItems;
 }

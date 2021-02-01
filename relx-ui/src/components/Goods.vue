@@ -19,6 +19,7 @@
       <el-table-column prop="name" label="名称"> </el-table-column>
       <el-table-column prop="amount" label="库存数量" width="120"> </el-table-column>
       <el-table-column prop="unit" label="单位" width="80"> </el-table-column>
+      <el-table-column prop="numberOfItems" label="每盒颗数" width="100"> </el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
       <el-table-column prop="updateTime" label="更新时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="120" v-if="false">

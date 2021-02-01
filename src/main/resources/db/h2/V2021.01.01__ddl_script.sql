@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS relx_goods_type;
 CREATE TABLE relx_goods_type (
   id                bigint NOT NULL COMMENT '主键ID',
   name              varchar(64) NOT NULL UNIQUE COMMENT '商品类型名称',
+  number_of_items   int(4) NOT NULL COMMENT '每盒个数',
   deleted           int(4) DEFAULT 0 NOT NULL COMMENT '逻辑删除',
   create_by         varchar(64) DEFAULT NULL COMMENT '创建者',
   create_time       datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
