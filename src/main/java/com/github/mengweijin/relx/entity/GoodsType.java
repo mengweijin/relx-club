@@ -40,12 +40,6 @@ public class GoodsType extends BaseEntity {
     private String name;
 
     /**
-     * 每盒个数
-     */
-    @TableField("NUMBER_OF_ITEMS")
-    private Integer numberOfItems;
-
-    /**
      * 逻辑删除
      */
     @TableField("DELETED")

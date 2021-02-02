@@ -2,6 +2,9 @@ package com.github.mengweijin.relx.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.mengweijin.relx.entity.Stock;
+import com.github.mengweijin.relx.entity.StockDetail;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.github.mengweijin.relx.entity.Stock;
  */
 public interface StockService extends IService<Stock> {
 
+    void addStockDetails(List<StockDetail> stockDetailList);
 }

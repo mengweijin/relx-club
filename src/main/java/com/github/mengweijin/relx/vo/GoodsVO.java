@@ -13,5 +13,4 @@ public class GoodsVO extends Goods {
 
     private String goodsTypeName;
 
-    private String numberOfItems;
 }

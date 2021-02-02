@@ -9,6 +9,7 @@
     <result column="CREATE_TIME" property="createTime" />
     <result column="UPDATE_BY" property="updateBy" />
     <result column="UPDATE_TIME" property="updateTime" />
+    <result column="STOCK_ID" property="stockId" />
     <result column="GOODS_TYPE_ID" property="goodsTypeId" />
     <result column="GOODS_ID" property="goodsId" />
     <result column="AMOUNT" property="amount" />
@@ -21,6 +22,7 @@
         CREATE_TIME,
         UPDATE_BY,
         UPDATE_TIME,
+        STOCK_ID,
         GOODS_TYPE_ID, GOODS_ID, AMOUNT, DELETED
     </sql>
 

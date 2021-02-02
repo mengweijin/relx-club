@@ -30,13 +30,6 @@ public class Stock extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 入库明细id
-     */
-    @JsonSerialize(using = ToStringSerializer.class)
-    @TableField("STOCK_DETAIL_ID")
-    private Long stockDetailId;
-
-    /**
      * 逻辑删除
      */
     @TableField("DELETED")

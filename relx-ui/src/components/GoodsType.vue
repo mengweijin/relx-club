@@ -29,11 +29,11 @@
     </el-table>
 
     <el-dialog title="添加/编辑商品类型" v-model="dialogFormVisible">
-      <el-form :model="form" :rules="rules" ref="form">
-        <el-form-item label="商品类型ID" prop="id" :label-width="formLabelWidth" v-if="form.id != null">
+      <el-form :model="form" :rules="rules" ref="form" label-width="120px">
+        <el-form-item label="商品类型ID" prop="id" v-if="form.id != null">
           <el-input v-model="form.id" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="商品类型名称" prop="name" :label-width="formLabelWidth">
+        <el-form-item label="商品类型名称" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -64,8 +64,7 @@
             { required: true, message: '请输入名称', trigger: 'blur' },
             { min: 1, max: 64, message: '名称长度必须在 1 ~ 64 之间', trigger: 'blur' }
           ]
-        },
-        formLabelWidth: '120px'
+        }
       }
     },
 

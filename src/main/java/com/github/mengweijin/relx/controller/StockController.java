@@ -2,9 +2,12 @@ package com.github.mengweijin.relx.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.mengweijin.relx.entity.Stock;
+import com.github.mengweijin.relx.entity.StockDetail;
 import com.github.mengweijin.relx.service.StockService;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import java.util.List;
 
 /**
  * <p>
@@ -73,6 +78,11 @@ public class StockController {
     @PostMapping
     public void add(@Valid @RequestBody Stock stock) {
         stockService.save(stock);
+    }
+
+    @PostMapping("/details")
+    public void addStockDetails(@Valid @NotNull @RequestBody List<@Valid StockDetail> stockDetailList) {
+        stockService.addStockDetails(stockDetailList);
     }
 
     /**

@@ -19,7 +19,6 @@
       <el-table-column prop="name" label="名称"> </el-table-column>
       <el-table-column prop="amount" label="库存数量" width="120"> </el-table-column>
       <el-table-column prop="unit" label="单位" width="80"> </el-table-column>
-      <el-table-column prop="numberOfItems" label="每盒颗数" width="100"> </el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
       <el-table-column prop="updateTime" label="更新时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="120" v-if="false">
@@ -41,16 +40,16 @@
     </el-pagination>
 
     <el-dialog title="添加/编辑商品" v-model="dialogFormVisible">
-      <el-form :model="form" :rules="rules" ref="form">
-        <el-form-item label="商品ID" prop="id" :label-width="formLabelWidth" v-if="form.id != null">
+      <el-form :model="form" :rules="rules" ref="form" label-width="120px">
+        <el-form-item label="商品ID" prop="id" v-if="form.id != null">
           <el-input v-model="form.id" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="商品类型" prop="goodsTypeId" :label-width="formLabelWidth">
+        <el-form-item label="商品类型" prop="goodsTypeId">
           <el-select v-model="form.goodsTypeId" placeholder="请选择商品类型">
             <el-option v-for="item in goodsTypeList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="商品名称" prop="name" :label-width="formLabelWidth">
+        <el-form-item label="商品名称" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -89,8 +88,7 @@
           goodsTypeId: [
             { required: true, message: '请选择商品类型', trigger: 'change' }
           ]
-        },
-        formLabelWidth: '120px'
+        }
       }
     },
 

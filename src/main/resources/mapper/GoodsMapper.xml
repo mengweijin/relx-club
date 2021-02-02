@@ -62,8 +62,7 @@
     <select id="selectPageVO" resultType="com.github.mengweijin.relx.vo.GoodsVO">
         select
         <include refid="Base_Column_List"/> ,
-        t2.NAME as goods_type_name,
-        t2.NUMBER_OF_ITEMS
+        t2.NAME as goods_type_name
 
         from RELX_GOODS t
         left join RELX_GOODS_TYPE t2 on t.GOODS_TYPE_ID = t2.id
