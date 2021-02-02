@@ -56,7 +56,8 @@
                 <el-table-column label="商品名称">
                   <template #default="scope">
                     <el-form-item label=" " :rules="rules.goodsId">
-                        <el-select v-model="scope.row.goodsId" placeholder="请选择商品" @change="setGoodsUnit(scope.row.goodsId, scope.row)">
+                        <!-- 在el-select 上加 :key="scope.row.goodsId" 的作用：强制 Vue 重新渲染组件的最佳方法是在组件上设置:key。 当我们需要重新渲染组件时，只需更 key 的值，Vue 就会重新渲染组件。 -->
+                        <el-select v-model="scope.row.goodsId" :key="scope.row.goodsId" placeholder="请选择商品" @change="setGoodsUnit(scope.row.goodsId, scope.row)">
                             <el-option v-for="item in scope.row.goodsList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
                         </el-select>
                     </el-form-item>
@@ -140,9 +141,10 @@ export default {
             })
         },
         loadGoodsByGoodsTypeId(goodsTypeId, row) {
-            this.$http.get('/goods/type/' + goodsTypeId).then(function (response) {           
-                row.goodsList = response
-            })
+          this.$http.get('/goods/type/' + goodsTypeId).then(function (response) { 
+            row.goodsId = null          
+            row.goodsList = response
+          })
         },
         setGoodsUnit(goodsId, row){
           this.$http.get('/goods/' + goodsId).then(function (response) {
@@ -156,7 +158,6 @@ export default {
           this.form.formStockDetailDataList.splice(index, 1)
       },
         addStock(formName) {
-            console.log(this.form)
             let _this = this
             this.$refs[formName].validate((valid) => {
                 if (valid) {
