@@ -16,12 +16,29 @@
           stripe
           border
           highlight-current-row>
-
-          <el-table-column prop="id" label="入库单号"> </el-table-column>
-          <el-table-column prop="createTime" label="创建时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
-          <el-table-column prop="updateTime" label="更新时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
-          <el-table-column prop="createBy" label="创建者" width="150"> </el-table-column>
-          <el-table-column prop="updateBy" label="修改者" width="150"> </el-table-column>
+          <el-table-column type="expand">
+            <template #default="scope">
+              <el-table
+                :data="scope.row.stockDetailList"
+                style="width: 100%"
+                :row-style="{height:'40px'}"
+                :cell-style="{padding:'5px 0'}">
+                stripe
+                border
+                highlight-current-row>
+                <el-table-column prop="stockId" label="入库单号"></el-table-column>
+                <el-table-column prop="goodsTypeName" label="商品类型"></el-table-column>
+                <el-table-column prop="goodsName" label="商品名称"></el-table-column>
+                <el-table-column prop="amount" label="入库数量"></el-table-column>
+                <el-table-column prop="goodsUnit" label="单位"></el-table-column>
+              </el-table>
+            </template>
+          </el-table-column>   
+          <el-table-column prop="id" label="入库单号"></el-table-column>
+          <el-table-column prop="createTime" label="创建时间" :formatter="dateTimeFormat"></el-table-column>
+          <el-table-column prop="updateTime" label="更新时间" :formatter="dateTimeFormat"></el-table-column>
+          <el-table-column prop="createBy" label="创建者"></el-table-column>
+          <el-table-column prop="updateBy" label="修改者"></el-table-column>
         </el-table>
 
         <el-dialog title="入库单明细" v-model="dialogFormVisible">
@@ -59,13 +76,20 @@
                     </el-form-item>
                   </template>
                 </el-table-column>
+                <el-table-column label="操作">
+                  <template #default="scope">
+                    <el-form-item label=" ">
+                      <el-button @click.prevent="deleteRow(scope.$index)" type="danger" icon="el-icon-delete" circle size="mini"></el-button>
+                    </el-form-item>
+                  </template>
+                </el-table-column>
             </el-table>
           </el-form>
           <template #footer>
             <span class="dialog-footer">
-              <el-button @click="addRow()" type="primary" plain icon="el-icon-plus">添加商品</el-button>
               <el-button @click="closeDialog()">取 消</el-button>
               <el-button type="primary" @click="addStock('form')">确 定</el-button>
+              <el-button @click="addRow()" type="primary" plain icon="el-icon-plus">添加商品</el-button>
             </span>
           </template>
         </el-dialog>
@@ -104,8 +128,8 @@ export default {
     methods: {
         loadTableData() {
             let _this = this;
-            this.$http.get('/stock').then(function (response) {
-                _this.tableDataList = response.dataList
+            this.$http.get('/stock/details').then(function (response) {
+                _this.tableDataList = response
                 _this.loading = false
             })
         },
@@ -128,6 +152,9 @@ export default {
         addRow() {
             this.form.formStockDetailDataList.push({goodsTypeId: null, goodsId: null, amount: null, unit: null});
         },
+        deleteRow(index) {
+          this.form.formStockDetailDataList.splice(index, 1)
+      },
         addStock(formName) {
             console.log(this.form)
             let _this = this

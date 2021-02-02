@@ -16,11 +16,11 @@
       border 
       highlight-current-row>
       <el-table-column prop="name" label="商品类型"> </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
-      <el-table-column prop="updateTime" label="更新时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
-      <el-table-column prop="createBy" label="创建者" width="150"> </el-table-column>
-      <el-table-column prop="updateBy" label="修改者" width="150"> </el-table-column>
-      <el-table-column fixed="right" label="操作"  width="180">
+      <el-table-column prop="createTime" label="创建时间" :formatter="dateTimeFormat"> </el-table-column>
+      <el-table-column prop="updateTime" label="更新时间" :formatter="dateTimeFormat"> </el-table-column>
+      <el-table-column prop="createBy" label="创建者"> </el-table-column>
+      <el-table-column prop="updateBy" label="修改者"> </el-table-column>
+      <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-button @click.prevent="editRow(scope.row)" type="primary" icon="el-icon-edit" circle size="mini"></el-button>
           <el-button @click.prevent="deleteRow(scope.$index, scope.row, tableDataList)" type="danger" icon="el-icon-delete" circle size="mini"></el-button>

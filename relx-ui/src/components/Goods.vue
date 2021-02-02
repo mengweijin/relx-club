@@ -15,13 +15,13 @@
       stripe 
       border 
       highlight-current-row>
-      <el-table-column prop="goodsTypeName" label="商品类型" width="200"> </el-table-column>
+      <el-table-column prop="goodsTypeName" label="商品类型"> </el-table-column>
       <el-table-column prop="name" label="名称"> </el-table-column>
-      <el-table-column prop="amount" label="库存数量" width="120"> </el-table-column>
-      <el-table-column prop="unit" label="单位" width="80"> </el-table-column>
-      <el-table-column prop="createTime" label="创建时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
-      <el-table-column prop="updateTime" label="更新时间" width="240" :formatter="dateTimeFormat"> </el-table-column>
-      <el-table-column fixed="right" label="操作" width="120" v-if="false">
+      <el-table-column prop="amount" label="库存数量"> </el-table-column>
+      <el-table-column prop="unit" label="单位"> </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" :formatter="dateTimeFormat"> </el-table-column>
+      <el-table-column prop="updateTime" label="更新时间" :formatter="dateTimeFormat"> </el-table-column>
+      <el-table-column fixed="right" label="操作" v-if="false">
         <template #default="scope">
           <el-button @click.prevent="editRow(scope.row)"  type="primary" icon="el-icon-edit" circle size="mini"></el-button>
           <el-button @click.prevent="deleteRow(scope.$index, scope.row, tableDataList)" type="danger" icon="el-icon-delete" circle size="mini"></el-button>
@@ -156,7 +156,6 @@
       },
 
       deleteRow(index, row, tableDataList) {
-        console.log(row)
         let _this = this;
         this.$confirm('此操作将删除该商品, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -170,7 +169,6 @@
         }).catch(() => {
           _this.$message({type: 'info', message: '已取消删除'});
         });
-        
       },
 
       dateTimeFormat(row, column) {

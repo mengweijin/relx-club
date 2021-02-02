@@ -17,13 +17,30 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID,
-        CREATE_BY,
-        CREATE_TIME,
-        UPDATE_BY,
-        UPDATE_TIME,
-        STOCK_ID,
-        GOODS_TYPE_ID, GOODS_ID, AMOUNT, DELETED
+        t.ID,
+        t.CREATE_BY,
+        t.CREATE_TIME,
+        t.UPDATE_BY,
+        t.UPDATE_TIME,
+        t.STOCK_ID,
+        t.GOODS_TYPE_ID,
+        t.GOODS_ID,
+        t.AMOUNT,
+        t.DELETED
     </sql>
 
+    <select id="selectStockDetailVOByStockId" resultType="com.github.mengweijin.relx.vo.StockDetailVO">
+        select
+        <include refid="Base_Column_List"/> ,
+        t2.NAME as goods_type_name,
+        t3.NAME as goods_name,
+        t3.UNIT as goods_unit
+
+        from RELX_STOCK_DETAIL t
+        left join RELX_GOODS_TYPE t2 on t.GOODS_TYPE_ID = t2.id
+        left join RELX_GOODS t3 on t.GOODS_ID = t3.id
+        <where>
+            t.STOCK_ID = #{stockId}
+        </where>
+    </select>
 </mapper>

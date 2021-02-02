@@ -31,7 +31,6 @@ ALTER TABLE relx_goods ADD UNIQUE INDEX relx_goods_goods_type_id_name (goods_typ
 DROP TABLE IF EXISTS relx_stock;
 CREATE TABLE relx_stock (
   id                bigint NOT NULL COMMENT '主键ID',
-  stock_detail_id   bigint DEFAULT 0 NOT NULL COMMENT '入库明细id',
   deleted           int(4) DEFAULT 0 NOT NULL COMMENT '逻辑删除',
   create_by         varchar(64) DEFAULT NULL COMMENT '创建者',
   create_time       datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -44,9 +43,10 @@ CREATE TABLE relx_stock (
 DROP TABLE IF EXISTS relx_stock_detail;
 CREATE TABLE relx_stock_detail (
   id                bigint NOT NULL COMMENT '主键ID',
-  goods_type_id     bigint DEFAULT 0 NOT NULL COMMENT '商品类型id',
-  goods_id          bigint DEFAULT 0 NOT NULL COMMENT '商品id',
-  amount            bigint NOT NULL COMMENT '入库数量',
+  stock_id          bigint NOT NULL COMMENT '入库明细id',
+  goods_type_id     bigint NOT NULL COMMENT '商品类型id',
+  goods_id          bigint NOT NULL COMMENT '商品id',
+  amount            bigint DEFAULT 0 NOT NULL COMMENT '入库数量',
   deleted           int(4) DEFAULT 0 NOT NULL COMMENT '逻辑删除',
   create_by         varchar(64) DEFAULT NULL COMMENT '创建者',
   create_time       datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

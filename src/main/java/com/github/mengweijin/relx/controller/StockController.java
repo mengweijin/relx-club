@@ -3,11 +3,14 @@ package com.github.mengweijin.relx.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.mengweijin.relx.entity.Stock;
 import com.github.mengweijin.relx.entity.StockDetail;
+import com.github.mengweijin.relx.service.StockDetailService;
 import com.github.mengweijin.relx.service.StockService;
+import com.github.mengweijin.relx.vo.StockVO;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,6 +73,10 @@ public class StockController {
         return stockService.page(page, new QueryWrapper<>(stock));
     }
 
+    @GetMapping("/details")
+    public List<StockVO> getStockDetails(IPage<Stock> page, Stock stock) {
+        return stockService.getStockDetails(page, stock);
+    }
     /**
      * <p>
      * Add Stock
