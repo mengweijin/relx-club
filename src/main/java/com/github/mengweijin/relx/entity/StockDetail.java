@@ -59,7 +59,7 @@ public class StockDetail extends BaseEntity {
      * 入库数量
      */
     @TableField("AMOUNT")
-    private BigDecimal amount;
+    private Long amount;
 
     /**
      * 逻辑删除

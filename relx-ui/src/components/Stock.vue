@@ -133,7 +133,7 @@ export default {
             let _this = this
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$http.post('/stock', this.form).then(function () {
+                    this.$http.post('/stock/details', this.form.formStockDetailDataList).then(function () {
                         _this.closeDialog()
                         _this.loadTableData();
                         _this.$message({type: 'success', message: '操作成功!'});
