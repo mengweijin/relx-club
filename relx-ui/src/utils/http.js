@@ -34,7 +34,7 @@ axios.interceptors.response.use(
         if (error.response.status) {
             switch (error.response.status) {
                 case 400:
-                    ElMessage.error({ message: error.response.status + " Bad Request", duration: 10000, showClose: true })
+                    ElMessage.error({ message: error.response.status + ": " + JSON.stringify(error.response.data), duration: 10000, showClose: true })
                     break;
                 case 401:
                     ElMessage.error({ message: error.response.status + " Unauthorized", duration: 10000, showClose: true })

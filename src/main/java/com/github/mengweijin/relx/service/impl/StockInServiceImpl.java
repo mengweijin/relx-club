@@ -49,7 +49,7 @@ public class StockInServiceImpl extends ServiceImpl<StockInMapper, StockIn> impl
     private GoodsService goodsService;
 
     @Override
-    public void addStockDetails(StockIn stockIn) {
+    public void addStockInDetails(StockIn stockIn) {
         this.save(stockIn);
         List<StockInDetail> stockInDetailList = stockIn.getStockInDetailList();
 
@@ -73,10 +73,10 @@ public class StockInServiceImpl extends ServiceImpl<StockInMapper, StockIn> impl
     }
 
     @Override
-    public IPage<StockIn> getStockDetails(IPage<StockIn> page, StockIn stockIn) {
+    public IPage<StockIn> getStockInDetails(IPage<StockIn> page, StockIn stockIn) {
         IPage<StockIn> stockInPage = this.page(page, new QueryWrapper<>(stockIn).orderByDesc("create_time"));
-        stockInPage.getRecords().forEach(stockEntity -> {
-            stockEntity.setStockInDetailList(stockInDetailMapper.selectStockInDetailByStockInId(stockEntity.getId()));
+        stockInPage.getRecords().forEach(stockInEntity -> {
+            stockInEntity.setStockInDetailList(stockInDetailMapper.selectStockInDetailByStockInId(stockInEntity.getId()));
         });
         return stockInPage;
     }

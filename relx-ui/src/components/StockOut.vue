@@ -2,7 +2,7 @@
   <div>
     <el-main>
         <el-button-group style="margin-bottom: 10px; margin-top: 10px;">
-          <el-button @click="dialogFormVisible = true" type="primary" plain icon="el-icon-plus">新建销售单</el-button>
+          <el-button @click="dialogFormVisible = true" type="primary" plain icon="el-icon-plus">新建采购单</el-button>
         </el-button-group>
         <el-table
           v-loading="loading"
@@ -19,22 +19,38 @@
           <el-table-column type="expand">
             <template #default="scope">
               <el-table
-                :data="scope.row.stockInDetailList"
+                :data="scope.row.stockOutDetailList"
                 style="width: 100%"
                 :row-style="{height:'40px'}"
                 :cell-style="{padding:'5px 0'}"
                 stripe
                 border
                 highlight-current-row>
-                <el-table-column prop="stockInId" label="销售单号"></el-table-column>
+                <el-table-column prop="stockOutId" label="销售单号"></el-table-column>
                 <el-table-column prop="goodsTypeName" label="商品类型"></el-table-column>
                 <el-table-column prop="goodsName" label="商品名称"></el-table-column>
-                <el-table-column prop="amount" label="入库数量"></el-table-column>
+                <el-table-column prop="amount" label="销售数量"></el-table-column>
                 <el-table-column prop="goodsUnit" label="单位"></el-table-column>
+                <el-table-column label="销售单价（￥）">
+                  <template #default="scope">
+                    {{ scope.row.price }} 元
+                  </template>
+                </el-table-column>
+                <el-table-column label="销售总价（￥）">
+                  <template #default="scope">
+                    {{ scope.row.totalPrice }} 元
+                  </template>
+                </el-table-column>
               </el-table>
             </template>
           </el-table-column>   
           <el-table-column prop="id" label="销售单号"></el-table-column>
+          <el-table-column prop="mobileTelephone" label="会员电话"></el-table-column>
+          <el-table-column label="销售总价（￥）">
+            <template #default="scope">
+              {{ scope.row.totalPrice }} 元
+            </template>
+          </el-table-column>
           <el-table-column prop="remark" label="备注信息"></el-table-column>
           <el-table-column prop="createTime" label="创建时间" :formatter="dateTimeFormat"></el-table-column>
           <el-table-column prop="updateTime" label="更新时间" :formatter="dateTimeFormat"></el-table-column>
@@ -54,19 +70,22 @@
 
         <el-dialog title="销售单明细" v-model="dialogFormVisible">
           <el-form :model="form" :rules="rules" ref="form" label-width="20px">
-            <el-form-item label="备注" label-width="60px">
+            <el-form-item label="会员电话" label-width="100px">
+              <el-input type="text" v-model="form.mobileTelephone"></el-input>
+            </el-form-item>
+            <el-form-item label="备注" label-width="100px">
               <el-input type="textarea" v-model="form.remark"></el-input>
             </el-form-item>
-            <el-table :data="form.stockInDetailList" border stripe>
+            <el-table :data="form.stockOutDetailList" border stripe>
                 <el-table-column label="商品类型">
                   <template #default="scope">
                     <!-- Note this v-if bellow is quite important, since the initial $index would always be -1, we need this to determine whether render the column -->
                     <el-form-item
                       v-if="scope && scope.$index >= 0"
                       label=" "
-                      :prop="'stockInDetailList.' + scope.$index + '.goodsTypeId'"
+                      :prop="'stockOutDetailList.' + scope.$index + '.goodsTypeId'"
                       :rules="rules.goodsTypeId">
-                      <el-select v-model="scope.row.goodsTypeId" placeholder="请选择商品类型" @change="loadGoodsByGoodsTypeId(scope.row.goodsTypeId, scope.row)">
+                      <el-select v-model="scope.row.goodsTypeId" :key="scope.row.goodsTypeId" placeholder="请选择商品类型" @change="loadGoodsByGoodsTypeId(scope.row.goodsTypeId, scope.row)">
                           <el-option v-for="item in goodsTypeList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
                       </el-select>
                     </el-form-item>
@@ -77,12 +96,23 @@
                     <el-form-item
                       v-if="scope && scope.$index >= 0"
                       label=" "
-                      :prop="'stockInDetailList.' + scope.$index + '.goodsId'"
+                      :prop="'stockOutDetailList.' + scope.$index + '.goodsId'"
                       :rules="rules.goodsId">
                       <!-- 在el-select 上加 :key="scope.row.goodsId" 的作用：强制 Vue 重新渲染组件的最佳方法是在组件上设置:key。 当我们需要重新渲染组件时，只需更 key 的值，Vue 就会重新渲染组件。 -->
-                      <el-select v-model="scope.row.goodsId" :key="scope.row.goodsId" placeholder="请选择商品" @change="setGoodsUnit(scope.row.goodsId, scope.row)">
+                      <el-select v-model="scope.row.goodsId" :key="scope.row.goodsId" placeholder="请选择商品" @change="setGoodsPriceAndUnit(scope.row.goodsId, scope.row)">
                           <el-option v-for="item in scope.row.goodsList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
                       </el-select>
+                    </el-form-item>
+                  </template>
+                </el-table-column>
+                <el-table-column label="单价（￥）">
+                  <template #default="scope">
+                    <el-form-item
+                      v-if="scope && scope.$index >= 0"
+                      label=" "
+                      :prop="'stockOutDetailList.' + scope.$index + '.price'"
+                      :rules="rules.price">
+                      <el-input type="number" v-model="scope.row.price" placeholder="请输入价格"></el-input>
                     </el-form-item>
                   </template>
                 </el-table-column>
@@ -91,7 +121,7 @@
                     <el-form-item
                       v-if="scope && scope.$index >= 0"
                       label=" "
-                      :prop="'stockInDetailList.' + scope.$index + '.amount'"
+                      :prop="'stockOutDetailList.' + scope.$index + '.amount'"
                       :rules="rules.amount">
                       <el-input type="number" v-model="scope.row.amount" placeholder="请输入数量"></el-input>
                     </el-form-item>
@@ -112,11 +142,18 @@
                   </template>
                 </el-table-column>
             </el-table>
+            <el-form-item label="已付款" label-width="100px">
+              <el-switch
+                v-model="form.paid"
+                active-color="#13ce66"
+                inactive-color="#ff4949">
+              </el-switch>
+            </el-form-item>
           </el-form>
           <template #footer>
             <span class="dialog-footer">
               <el-button @click="closeDialog()">取 消</el-button>
-              <el-button type="primary" @click="addStock('form')">确 定</el-button>
+              <el-button type="primary" @click="addStockOut('form')">确 定</el-button>
               <el-button @click="addRow()" type="primary" plain icon="el-icon-plus">添加商品</el-button>
             </span>
           </template>
@@ -140,8 +177,10 @@ export default {
             total: 0,
             dialogFormVisible: false,
             form: {
+              paid: false,
+              mobileTelephone: null,
               remark: null,
-              stockInDetailList: [{goodsTypeId: null, goodsId: null, amount: null, unit: null}],
+              stockOutDetailList: [{goodsTypeId: null, goodsId: null, amount: 1, unit: null, price: null}],
             },
             rules: {
               goodsTypeId: [
@@ -152,6 +191,9 @@ export default {
               ],
               amount: [
                 { required: true, message: '请输入数量', trigger: 'blur' }
+              ],
+              price: [
+                { required: true, message: '请输入单价', trigger: 'blur' }
               ]
             }
         }
@@ -159,7 +201,7 @@ export default {
     methods: {
         loadTableData(current, size) {
             let _this = this;
-            this.$http.get('/stock-in/details', {current: current, size: size}).then(function (response) {
+            this.$http.get('/stock-out/details', {current: current, size: size}).then(function (response) {
                 _this.tableDataList = response.dataList
                 _this.total = response.total
                 _this.loading = false
@@ -177,9 +219,10 @@ export default {
             row.goodsList = response
           })
         },
-        setGoodsUnit(goodsId, row){
+        setGoodsPriceAndUnit(goodsId, row){
           this.$http.get('/goods/' + goodsId).then(function (response) {
-              row.unit = response.unit
+            row.price = response.price
+            row.unit = response.unit
           })
         },
         handleSizeChange(val) {
@@ -192,20 +235,24 @@ export default {
           this.loadTableData(this.currentPage, this.pageSize)
         },
         addRow() {
-            this.form.stockInDetailList.push({goodsTypeId: null, goodsId: null, amount: null, unit: null});
+            this.form.stockOutDetailList.push({goodsTypeId: null, goodsId: null, amount: null, unit: null, price: null});
         },
         deleteRow(index) {
-          this.form.stockInDetailList.splice(index, 1)
+          this.form.stockOutDetailList.splice(index, 1)
       },
-        addStock(formName) {
+        addStockOut(formName) {
             let _this = this
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$http.post('/stock-in/details', this.form).then(function () {
-                        _this.closeDialog()
-                        _this.loadTableData(_this.currentPage, _this.pageSize);
-                        _this.$message({type: 'success', message: '操作成功!'});
-                    })
+                  if(!_this.form.paid){
+                    _this.$message({type: 'warning', message: '未付款! 如果已经付款，请打开已付款开关！'});
+                    return false;
+                  }
+                  this.$http.post('/stock-out/details', this.form).then(function () {
+                      _this.closeDialog()
+                      _this.loadTableData(_this.currentPage, _this.pageSize);
+                      _this.$message({type: 'success', message: '操作成功!'});
+                  })
                 } else {
                     return false;
                 }
@@ -213,7 +260,7 @@ export default {
         },
         closeDialog(){
             this.dialogFormVisible = false
-            this.form.stockInDetailList = [{}]
+            this.form.stockOutDetailList = [{}]
         },
         dateTimeFormat(row, column) {
             let date = row[column.property]

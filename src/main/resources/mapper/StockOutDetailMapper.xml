@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mengweijin.relx.mapper.StockOutDetailMapper">
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        t.ID,
+        t.CREATE_BY,
+        t.CREATE_TIME,
+        t.UPDATE_BY,
+        t.UPDATE_TIME,
+        t.STOCK_OUT_ID,
+        t.GOODS_TYPE_ID,
+        t.GOODS_ID,
+        t.AMOUNT,
+        t.PRICE,
+        t.TOTAL_PRICE,
+        t.DELETED
+    </sql>
+    <select id="selectStockOutDetailByStockOutId" resultType="com.github.mengweijin.relx.entity.StockOutDetail">
+        select
+        <include refid="Base_Column_List"/> ,
+        t2.NAME as goods_type_name,
+        t3.NAME as goods_name,
+        t3.UNIT as goods_unit
+
+        from RELX_STOCK_OUT_DETAIL t
+        left join RELX_GOODS_TYPE t2 on t.GOODS_TYPE_ID = t2.id
+        left join RELX_GOODS t3 on t.GOODS_ID = t3.id
+        <where>
+            t.STOCK_OUT_ID = #{stockOutId}
+        </where>
+    </select>
+</mapper>

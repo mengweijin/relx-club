@@ -14,7 +14,7 @@ import com.github.mengweijin.relx.entity.StockIn;
  */
 public interface StockInService extends IService<StockIn> {
 
-    void addStockDetails(StockIn stockIn);
+    void addStockInDetails(StockIn stockIn);
 
-    IPage<StockIn> getStockDetails(IPage<StockIn> page, StockIn stockIn);
+    IPage<StockIn> getStockInDetails(IPage<StockIn> page, StockIn stockIn);
 }
