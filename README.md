@@ -9,7 +9,11 @@
 
 #### 安装教程
 
-1.  安装 docker 
+1.  安装 docker
+    * linux 系统参考https://docs.docker.com docker 安装部分。
+    * 如果是windows系统参考：https://docs.docker.com/docker-for-windows/install-windows-home/
+    
+注意：记得配置国内docker源，否则下载镜像的速度非常慢。
 2.  安装 UI：
 ````
 $ docker run --name relx-ui -p 80:80 -d registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-ui:latest
@@ -18,7 +22,7 @@ $ docker run --name relx-ui -p 80:80 -d registry.cn-hangzhou.aliyuncs.com/mengwe
 ````
 $ docker run --name relx-club-invoicing-management-system -d -p 8081:8081 registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club-invoicing-management-system:latest
 ````
-    
+4. 访问页面 http://localhost:80
 
 #### 使用说明
 
