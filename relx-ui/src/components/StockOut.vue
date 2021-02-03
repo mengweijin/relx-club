@@ -2,7 +2,7 @@
   <div>
     <el-main>
         <el-button-group style="margin-bottom: 10px; margin-top: 10px;">
-          <el-button @click="dialogFormVisible = true" type="primary" plain icon="el-icon-plus">新建采购单</el-button>
+          <el-button @click="dialogFormVisible = true" type="primary" plain icon="el-icon-plus">新建销售单</el-button>
         </el-button-group>
         <el-table
           v-loading="loading"
@@ -77,7 +77,7 @@
               <el-input type="textarea" v-model="form.remark"></el-input>
             </el-form-item>
             <el-table :data="form.stockOutDetailList" border stripe>
-                <el-table-column label="商品类型">
+                <el-table-column label="商品类型" width="180px;">
                   <template #default="scope">
                     <!-- Note this v-if bellow is quite important, since the initial $index would always be -1, we need this to determine whether render the column -->
                     <el-form-item
@@ -91,7 +91,7 @@
                     </el-form-item>
                   </template>
                 </el-table-column>
-                <el-table-column label="商品名称">
+                <el-table-column label="商品名称" width="180px;">
                   <template #default="scope">
                     <el-form-item
                       v-if="scope && scope.$index >= 0"
@@ -99,20 +99,20 @@
                       :prop="'stockOutDetailList.' + scope.$index + '.goodsId'"
                       :rules="rules.goodsId">
                       <!-- 在el-select 上加 :key="scope.row.goodsId" 的作用：强制 Vue 重新渲染组件的最佳方法是在组件上设置:key。 当我们需要重新渲染组件时，只需更 key 的值，Vue 就会重新渲染组件。 -->
-                      <el-select v-model="scope.row.goodsId" :key="scope.row.goodsId" placeholder="请选择商品" @change="setGoodsPriceAndUnit(scope.row.goodsId, scope.row)">
+                      <el-select v-model="scope.row.goodsId" :key="scope.row.goodsId" placeholder="请选择商品" @change="setGoodsPriceAndUnitAndTotalPrice(scope.row.goodsId, scope.row)">
                           <el-option v-for="item in scope.row.goodsList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
                       </el-select>
                     </el-form-item>
                   </template>
                 </el-table-column>
-                <el-table-column label="单价（￥）">
+                <el-table-column label="单价（￥）" width="160px;">
                   <template #default="scope">
                     <el-form-item
                       v-if="scope && scope.$index >= 0"
                       label=" "
                       :prop="'stockOutDetailList.' + scope.$index + '.price'"
                       :rules="rules.price">
-                      <el-input type="number" v-model="scope.row.price" placeholder="请输入价格"></el-input>
+                      <el-input type="number" v-model="scope.row.price" placeholder="请输入价格" @input="computeTotalPrice(scope.row)"></el-input>
                     </el-form-item>
                   </template>
                 </el-table-column>
@@ -123,7 +123,7 @@
                       label=" "
                       :prop="'stockOutDetailList.' + scope.$index + '.amount'"
                       :rules="rules.amount">
-                      <el-input type="number" v-model="scope.row.amount" placeholder="请输入数量"></el-input>
+                      <el-input type="number" v-model="scope.row.amount" placeholder="请输入数量" @input="computeTotalPrice(scope.row)"></el-input>
                     </el-form-item>
                   </template>
                 </el-table-column>
@@ -134,7 +134,14 @@
                     </el-form-item>
                   </template>
                 </el-table-column>
-                <el-table-column label="操作">
+                <el-table-column label="价格合计">
+                  <template #default="scope">
+                    <el-form-item label=" ">
+                        <el-input v-model="scope.row.totalPrice" :disabled="true"></el-input>
+                    </el-form-item>
+                  </template>
+                </el-table-column>
+                <el-table-column label="操作" width="90px;">
                   <template #default="scope">
                     <el-form-item label=" ">
                       <el-button @click.prevent="deleteRow(scope.$index)" type="danger" icon="el-icon-delete" circle size="mini"></el-button>
@@ -219,11 +226,16 @@ export default {
             row.goodsList = response
           })
         },
-        setGoodsPriceAndUnit(goodsId, row){
+        setGoodsPriceAndUnitAndTotalPrice(goodsId, row){
+          let _this = this;
           this.$http.get('/goods/' + goodsId).then(function (response) {
             row.price = response.price
             row.unit = response.unit
+            _this.computeTotalPrice(row)
           })
+        },
+        computeTotalPrice(row) {
+          row.totalPrice = row.price * row.amount
         },
         handleSizeChange(val) {
         this.currentPage = 1
@@ -235,7 +247,7 @@ export default {
           this.loadTableData(this.currentPage, this.pageSize)
         },
         addRow() {
-            this.form.stockOutDetailList.push({goodsTypeId: null, goodsId: null, amount: null, unit: null, price: null});
+            this.form.stockOutDetailList.push({goodsTypeId: null, goodsId: null, amount: 1, unit: null, price: null});
         },
         deleteRow(index) {
           this.form.stockOutDetailList.splice(index, 1)
