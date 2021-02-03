@@ -2,7 +2,7 @@
   <div>
     <el-main>
         <el-button-group style="margin-bottom: 10px; margin-top: 10px;">
-          <el-button @click="dialogFormVisible = true" type="primary" plain icon="el-icon-plus">新建入库单</el-button>
+          <el-button @click="dialogFormVisible = true" type="primary" plain icon="el-icon-plus">新建销售单</el-button>
         </el-button-group>
         <el-table
           v-loading="loading"
@@ -12,21 +12,21 @@
           :data="tableDataList"
           style="width: 100%"
           :row-style="{height:'40px'}"
-          :cell-style="{padding:'5px 0'}">
+          :cell-style="{padding:'5px 0'}"
           stripe
           border
           highlight-current-row>
           <el-table-column type="expand">
             <template #default="scope">
               <el-table
-                :data="scope.row.stockDetailList"
+                :data="scope.row.stockInDetailList"
                 style="width: 100%"
                 :row-style="{height:'40px'}"
-                :cell-style="{padding:'5px 0'}">
+                :cell-style="{padding:'5px 0'}"
                 stripe
                 border
                 highlight-current-row>
-                <el-table-column prop="stockId" label="入库单号"></el-table-column>
+                <el-table-column prop="stockInId" label="销售单号"></el-table-column>
                 <el-table-column prop="goodsTypeName" label="商品类型"></el-table-column>
                 <el-table-column prop="goodsName" label="商品名称"></el-table-column>
                 <el-table-column prop="amount" label="入库数量"></el-table-column>
@@ -34,39 +34,66 @@
               </el-table>
             </template>
           </el-table-column>   
-          <el-table-column prop="id" label="入库单号"></el-table-column>
+          <el-table-column prop="id" label="销售单号"></el-table-column>
+          <el-table-column prop="remark" label="备注信息"></el-table-column>
           <el-table-column prop="createTime" label="创建时间" :formatter="dateTimeFormat"></el-table-column>
           <el-table-column prop="updateTime" label="更新时间" :formatter="dateTimeFormat"></el-table-column>
           <el-table-column prop="createBy" label="创建者"></el-table-column>
           <el-table-column prop="updateBy" label="修改者"></el-table-column>
         </el-table>
+        <el-pagination
+          background
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[15, 30, 50, 100]"
+          :page-size="pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
+        </el-pagination>
 
-        <el-dialog title="入库单明细" v-model="dialogFormVisible">
+        <el-dialog title="销售单明细" v-model="dialogFormVisible">
           <el-form :model="form" :rules="rules" ref="form" label-width="20px">
-            <el-table :data="form.formStockDetailDataList" border stripe>
+            <el-form-item label="备注" label-width="60px">
+              <el-input type="textarea" v-model="form.remark"></el-input>
+            </el-form-item>
+            <el-table :data="form.stockInDetailList" border stripe>
                 <el-table-column label="商品类型">
                   <template #default="scope">
-                    <el-form-item label=" " :rules="rules.goodsTypeId">
-                        <el-select v-model="scope.row.goodsTypeId" placeholder="请选择商品类型" @change="loadGoodsByGoodsTypeId(scope.row.goodsTypeId, scope.row)">
-                            <el-option v-for="item in goodsTypeList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
-                        </el-select>
+                    <!-- Note this v-if bellow is quite important, since the initial $index would always be -1, we need this to determine whether render the column -->
+                    <el-form-item
+                      v-if="scope && scope.$index >= 0"
+                      label=" "
+                      :prop="'stockInDetailList.' + scope.$index + '.goodsTypeId'"
+                      :rules="rules.goodsTypeId">
+                      <el-select v-model="scope.row.goodsTypeId" placeholder="请选择商品类型" @change="loadGoodsByGoodsTypeId(scope.row.goodsTypeId, scope.row)">
+                          <el-option v-for="item in goodsTypeList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
+                      </el-select>
                     </el-form-item>
                   </template>
                 </el-table-column>
                 <el-table-column label="商品名称">
                   <template #default="scope">
-                    <el-form-item label=" " :rules="rules.goodsId">
-                        <!-- 在el-select 上加 :key="scope.row.goodsId" 的作用：强制 Vue 重新渲染组件的最佳方法是在组件上设置:key。 当我们需要重新渲染组件时，只需更 key 的值，Vue 就会重新渲染组件。 -->
-                        <el-select v-model="scope.row.goodsId" :key="scope.row.goodsId" placeholder="请选择商品" @change="setGoodsUnit(scope.row.goodsId, scope.row)">
-                            <el-option v-for="item in scope.row.goodsList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
-                        </el-select>
+                    <el-form-item
+                      v-if="scope && scope.$index >= 0"
+                      label=" "
+                      :prop="'stockInDetailList.' + scope.$index + '.goodsId'"
+                      :rules="rules.goodsId">
+                      <!-- 在el-select 上加 :key="scope.row.goodsId" 的作用：强制 Vue 重新渲染组件的最佳方法是在组件上设置:key。 当我们需要重新渲染组件时，只需更 key 的值，Vue 就会重新渲染组件。 -->
+                      <el-select v-model="scope.row.goodsId" :key="scope.row.goodsId" placeholder="请选择商品" @change="setGoodsUnit(scope.row.goodsId, scope.row)">
+                          <el-option v-for="item in scope.row.goodsList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
+                      </el-select>
                     </el-form-item>
                   </template>
                 </el-table-column>
                 <el-table-column label="数量">
                   <template #default="scope">
-                    <el-form-item label=" " :rules="rules.amount">
-                        <el-input v-model="scope.row.amount" placeholder="请输入数量"></el-input>
+                    <el-form-item
+                      v-if="scope && scope.$index >= 0"
+                      label=" "
+                      :prop="'stockInDetailList.' + scope.$index + '.amount'"
+                      :rules="rules.amount">
+                      <el-input type="number" v-model="scope.row.amount" placeholder="请输入数量"></el-input>
                     </el-form-item>
                   </template>
                 </el-table-column>
@@ -102,15 +129,19 @@
 
 
 export default {
-    name: 'Stock',
+    name: 'StockIn',
     data: function() {
         return {
             loading: true,
             goodsTypeList: [],
             tableDataList: [],
+            currentPage: 1,
+            pageSize: 15,
+            total: 0,
             dialogFormVisible: false,
             form: {
-              formStockDetailDataList: [{goodsTypeId: null, goodsId: null, amount: null, unit: null}],
+              remark: null,
+              stockInDetailList: [{goodsTypeId: null, goodsId: null, amount: null, unit: null}],
             },
             rules: {
               goodsTypeId: [
@@ -120,17 +151,17 @@ export default {
                 { required: true, message: '请选择商品', trigger: 'change' }
               ],
               amount: [
-                { required: true, message: '请输入数量', trigger: 'blur' },
-                { min: 1, message: '数量必须大于 0', trigger: 'blur' }
+                { required: true, message: '请输入数量', trigger: 'blur' }
               ]
             }
         }
     },
     methods: {
-        loadTableData() {
+        loadTableData(current, size) {
             let _this = this;
-            this.$http.get('/stock/details').then(function (response) {
-                _this.tableDataList = response
+            this.$http.get('/stock-in/details', {current: current, size: size}).then(function (response) {
+                _this.tableDataList = response.dataList
+                _this.total = response.total
                 _this.loading = false
             })
         },
@@ -151,19 +182,28 @@ export default {
               row.unit = response.unit
           })
         },
+        handleSizeChange(val) {
+        this.currentPage = 1
+        this.pageSize = val
+        this.loadTableData(this.currentPage, this.pageSize)
+        },
+        handleCurrentChange(val) {
+          this.currentPage = val
+          this.loadTableData(this.currentPage, this.pageSize)
+        },
         addRow() {
-            this.form.formStockDetailDataList.push({goodsTypeId: null, goodsId: null, amount: null, unit: null});
+            this.form.stockInDetailList.push({goodsTypeId: null, goodsId: null, amount: null, unit: null});
         },
         deleteRow(index) {
-          this.form.formStockDetailDataList.splice(index, 1)
+          this.form.stockInDetailList.splice(index, 1)
       },
         addStock(formName) {
             let _this = this
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$http.post('/stock/details', this.form.formStockDetailDataList).then(function () {
+                    this.$http.post('/stock-in/details', this.form).then(function () {
                         _this.closeDialog()
-                        _this.loadTableData();
+                        _this.loadTableData(_this.currentPage, _this.pageSize);
                         _this.$message({type: 'success', message: '操作成功!'});
                     })
                 } else {
@@ -173,7 +213,7 @@ export default {
         },
         closeDialog(){
             this.dialogFormVisible = false
-            this.form.formStockDetailDataList = [{}]
+            this.form.stockInDetailList = [{}]
         },
         dateTimeFormat(row, column) {
             let date = row[column.property]
@@ -182,7 +222,7 @@ export default {
         }
     },
     created: function() {
-        this.loadTableData();
+        this.loadTableData(this.currentPage, this.pageSize);
         this.loadGoodsTypeData();
     }
 }

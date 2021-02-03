@@ -1,7 +1,7 @@
 package com.github.mengweijin.relx.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.mengweijin.relx.entity.StockDetail;
+import com.github.mengweijin.relx.entity.StockInDetail;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.github.mengweijin.relx.entity.StockDetail;
  * @author mengweijin
  * @since 2021-02-01
  */
-public interface StockDetailService extends IService<StockDetail> {
+public interface StockInDetailService extends IService<StockInDetail> {
 
 }

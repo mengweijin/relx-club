@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -27,8 +28,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("RELX_STOCK_DETAIL")
-public class StockDetail extends BaseEntity {
+@TableName("RELX_STOCK_IN_DETAIL")
+public class StockInDetail extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,8 +37,8 @@ public class StockDetail extends BaseEntity {
      * 入库明细id
      */
     @JsonSerialize(using = ToStringSerializer.class)
-    @TableField("STOCK_ID")
-    private Long stockId;
+    @TableField("STOCK_IN_ID")
+    private Long stockInId;
 
     /**
      * 商品类型id
@@ -62,9 +63,30 @@ public class StockDetail extends BaseEntity {
     private Long amount;
 
     /**
+     * 采购单价
+     */
+    @NotNull
+    @TableField("PRICE")
+    private BigDecimal price;
+
+    /**
+     * 采购合计价格
+     */
+    @TableField("TOTAL_PRICE")
+    private BigDecimal totalPrice;
+
+    /**
      * 逻辑删除
      */
     @TableField("DELETED")
     private Integer deleted;
 
+    @TableField(exist = false)
+    private String goodsTypeName;
+
+    @TableField(exist = false)
+    private String goodsName;
+
+    @TableField(exist = false)
+    private String goodsUnit;
 }

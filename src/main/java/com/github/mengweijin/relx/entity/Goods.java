@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -14,6 +15,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -42,6 +44,11 @@ public class Goods extends BaseEntity {
     private String name;
 
     /**
+     * 销售单价
+     */
+    @TableField("PRICE")
+    private BigDecimal price;
+    /**
      * 商品类型id
      */
     @NotNull
@@ -67,5 +74,6 @@ public class Goods extends BaseEntity {
     @TableField("DELETED")
     private Integer deleted;
 
-
+    @TableField(exist = false)
+    private String goodsTypeName;
 }

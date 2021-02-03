@@ -11,20 +11,31 @@
       :data="tableDataList" 
       style="width: 100%" 
       :row-style="{height:'40px'}" 
-      :cell-style="{padding:'5px 0'}">
+      :cell-style="{padding:'5px 0'}"
       stripe 
       border 
       highlight-current-row>
       <el-table-column prop="goodsTypeName" label="商品类型"> </el-table-column>
       <el-table-column prop="name" label="名称"> </el-table-column>
-      <el-table-column prop="amount" label="库存数量"> </el-table-column>
+      <el-table-column label="单价">
+        <template #default="scope">
+          {{ scope.row.price }} 元
+        </template>
+      </el-table-column>
+      <el-table-column label="库存数量">
+        <template #default="scope">
+          <el-button type="danger" round size="mini" v-if="scope.row.amount === 0">{{ scope.row.amount }}</el-button>
+          <el-button type="warning" round size="mini" v-else-if="scope.row.amount <= 10">{{ scope.row.amount }}</el-button>
+          <el-button type="success" round size="mini" v-else>{{ scope.row.amount }}</el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="unit" label="单位"> </el-table-column>
       <el-table-column prop="createTime" label="创建时间" :formatter="dateTimeFormat"> </el-table-column>
       <el-table-column prop="updateTime" label="更新时间" :formatter="dateTimeFormat"> </el-table-column>
-      <el-table-column fixed="right" label="操作" v-if="false">
+      <el-table-column fixed="right" label="操作">
         <template #default="scope">
           <el-button @click.prevent="editRow(scope.row)"  type="primary" icon="el-icon-edit" circle size="mini"></el-button>
-          <el-button @click.prevent="deleteRow(scope.$index, scope.row, tableDataList)" type="danger" icon="el-icon-delete" circle size="mini"></el-button>
+          <el-button v-if="false" @click.prevent="deleteRow(scope.$index, scope.row, tableDataList)" type="danger" icon="el-icon-delete" circle size="mini"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -45,12 +56,18 @@
           <el-input v-model="form.id" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="商品类型" prop="goodsTypeId">
-          <el-select v-model="form.goodsTypeId" placeholder="请选择商品类型">
+          <el-select v-model="form.goodsTypeId" :key="form.goodsTypeId" placeholder="请选择商品类型">
             <el-option v-for="item in goodsTypeList" v-bind:key="item.id" v-bind:label="item.name" v-bind:value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="商品名称" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="价格（￥）" prop="price">
+          <el-input type="number" v-model="form.price" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="单位" prop="unit">
+          <el-input v-model="form.unit" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -78,7 +95,9 @@
         form: {
           id: null,
           goodsTypeId: null,
-          name: null
+          name: null,
+          unit: null,
+          price: null
         },
         rules: {
           name: [
@@ -124,17 +143,17 @@
         let _this = this
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            if(this.form.id === '') {
+            if(this.form.id === null) {
               this.$http.post('/goods', this.form).then(function () {
+                  // 注意顺序，不能先清空表单参数
+                  _this.loadTableData(_this.currentPage, _this.pageSize, _this.form.goodsTypeId);
                   _this.closeDialog()
-                  _this.loadTableData();
                   _this.$message({type: 'success', message: '操作成功!'});
                 }
               )
             } else {
               this.$http.put('/goods', this.form).then(function () {
                 _this.closeDialog()
-                _this.loadTableData();
                 _this.$message({type: 'success', message: '操作成功!'});
               })
             }
@@ -185,6 +204,7 @@
       let _this = this
       this.$watch(() => this.$route.params, (toParams, previousParams) => {
         if(toParams != previousParams) {
+          _this.form.goodsTypeId = toParams.goodsTypeId
           _this.loadTableData(this.currentPage, this.pageSize, toParams.goodsTypeId);
         }
       })

@@ -11,7 +11,7 @@
       :data="tableDataList" 
       style="width: 100%" 
       :row-style="{height:'40px'}" 
-      :cell-style="{padding:'5px 0'}">
+      :cell-style="{padding:'5px 0'}"
       stripe 
       border 
       highlight-current-row>
@@ -27,6 +27,16 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      background
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[15, 30, 50, 100]"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
 
     <el-dialog title="添加/编辑商品类型" v-model="dialogFormVisible">
       <el-form :model="form" :rules="rules" ref="form" label-width="120px">
@@ -54,6 +64,9 @@
       return {
         loading: true,
         tableDataList: [],
+        currentPage: 1,
+        pageSize: 15,
+        total: 0,
         dialogFormVisible: false,
         form: {
           id: null,
@@ -69,15 +82,24 @@
     },
 
     methods: {
-      loadTableData() {
+      loadTableData(current, size) {
         let _this = this;
-        this.$http.get('/goods-type/all').then(function (response) {
-            _this.tableDataList = response
+        this.$http.get('/goods-type', {current: current, size: size}).then(function (response) {
+            _this.tableDataList = response.dataList
+            _this.total = response.total
             _this.loading = false
           }
         )
       },
-
+      handleSizeChange(val) {
+        this.currentPage = 1
+        this.pageSize = val
+        this.loadTableData(this.currentPage, this.pageSize)
+      },
+      handleCurrentChange(val) {
+        this.currentPage = val
+        this.loadTableData(this.currentPage, this.pageSize)
+      },
       addOrUpdateGoodsType(formName) {
         let _this = this
         this.$refs[formName].validate((valid) => {
@@ -85,14 +107,14 @@
             if(this.form.id == null) {
               this.$http.post('/goods-type', this.form).then(function () {
                   _this.closeDialog()
-                  _this.loadTableData();
+                  _this.loadTableData(_this.currentPage, _this.pageSize);
                   _this.$message({type: 'success', message: '操作成功!'});
                 }
               )
             } else {
               this.$http.put('/goods-type', this.form).then(function () {
                 _this.closeDialog()
-                _this.loadTableData();
+                _this.loadTableData(_this.currentPage, _this.pageSize);
                 _this.$message({type: 'success', message: '操作成功!'});
               })
             }
@@ -137,7 +159,7 @@
     },
 
     created: function() {
-      this.loadTableData();
+      this.loadTableData(this.currentPage, this.pageSize);
     }
   }
 

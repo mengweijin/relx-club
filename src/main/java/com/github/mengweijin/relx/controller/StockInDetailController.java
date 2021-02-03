@@ -1,8 +1,8 @@
 package com.github.mengweijin.relx.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.mengweijin.relx.entity.StockDetail;
-import com.github.mengweijin.relx.service.StockDetailService;
+import com.github.mengweijin.relx.entity.StockInDetail;
+import com.github.mengweijin.relx.service.StockInDetailService;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.Valid;
 import org.springframework.validation.annotation.Validated;
@@ -28,8 +28,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/stock-detail")
-public class StockDetailController {
+@RequestMapping("/stock-in-detail")
+public class StockInDetailController {
 
     /**
      * <p>
@@ -37,7 +37,7 @@ public class StockDetailController {
      * </p>
      */
     @Autowired
-    private StockDetailService stockDetailService;
+    private StockInDetailService stockInDetailService;
 
     /**
      * <p>
@@ -47,8 +47,8 @@ public class StockDetailController {
      * @return StockDetail
      */
     @GetMapping("/{id}")
-    public StockDetail getById(@Valid @PathVariable("id") Long id) {
-        return stockDetailService.getById(id);
+    public StockInDetail getById(@Valid @PathVariable("id") Long id) {
+        return stockInDetailService.getById(id);
     }
 
     /**
@@ -56,34 +56,34 @@ public class StockDetailController {
      * Get StockDetail page list by StockDetail
      * </p>
      * @param page page
-     * @param stockDetail stockDetail
+     * @param stockInDetail stockDetail
      * @return IPage<StockDetail>
      */
     @GetMapping
-    public IPage<StockDetail> getPage(IPage<StockDetail> page, @Valid StockDetail stockDetail) {
-        return stockDetailService.page(page, new QueryWrapper<>(stockDetail));
+    public IPage<StockInDetail> getPage(IPage<StockInDetail> page, @Valid StockInDetail stockInDetail) {
+        return stockInDetailService.page(page, new QueryWrapper<>(stockInDetail));
     }
 
     /**
      * <p>
      * Add StockDetail
      * </p>
-     * @param stockDetail stockDetail
+     * @param stockInDetail stockDetail
      */
     @PostMapping
-    public void add(@Valid @RequestBody StockDetail stockDetail) {
-        stockDetailService.save(stockDetail);
+    public void add(@Valid @RequestBody StockInDetail stockInDetail) {
+        stockInDetailService.save(stockInDetail);
     }
 
     /**
      * <p>
      * Update StockDetail
      * </p>
-     * @param stockDetail stockDetail
+     * @param stockInDetail stockDetail
      */
     @PutMapping
-    public void update(@Valid @RequestBody StockDetail stockDetail) {
-        stockDetailService.updateById(stockDetail);
+    public void update(@Valid @RequestBody StockInDetail stockInDetail) {
+        stockInDetailService.updateById(stockInDetail);
     }
 
     /**
@@ -94,7 +94,7 @@ public class StockDetailController {
      */
     @DeleteMapping("/{id}")
     public void delete(@Valid @PathVariable("id") Long id) {
-        stockDetailService.removeById(id);
+        stockInDetailService.removeById(id);
     }
 
 }

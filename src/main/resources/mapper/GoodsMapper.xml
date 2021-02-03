@@ -13,6 +13,7 @@
     <result column="GOODS_TYPE_ID" property="goodsTypeId" />
     <result column="AMOUNT" property="amount" />
     <result column="UNIT" property="unit" />
+    <result column="PRICE" property="price" />
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -24,7 +25,8 @@
         t.NAME,
         t.GOODS_TYPE_ID,
         t.AMOUNT,
-        t.UNIT
+        t.UNIT,
+        t.PRICE
     </sql>
     <!-- 查询条件 -->
     <sql id="Where_Condition">
@@ -40,6 +42,9 @@
             </if>
             <if test="p.unit != null and p.unit != ''">
                 and t.UNIT = #{p.unit}
+            </if>
+            <if test="p.price != null">
+                and t.PRICE = #{p.price}
             </if>
             <if test="p.id != null">
                 and t.ID = #{p.id}
@@ -59,7 +64,7 @@
         </where>
     </sql>
 
-    <select id="selectPageVO" resultType="com.github.mengweijin.relx.vo.GoodsVO">
+    <select id="selectPageVO" resultType="com.github.mengweijin.relx.entity.Goods">
         select
         <include refid="Base_Column_List"/> ,
         t2.NAME as goods_type_name
@@ -67,5 +72,6 @@
         from RELX_GOODS t
         left join RELX_GOODS_TYPE t2 on t.GOODS_TYPE_ID = t2.id
         <include refid="Where_Condition"/>
+        order by t.GOODS_TYPE_ID
     </select>
 </mapper>

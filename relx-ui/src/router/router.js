@@ -31,10 +31,17 @@ const routes = [
                 }
             },
             {
-                path: '/stock',
+                path: '/stock-in',
                 components: {
                  Header: Header,
-                 default: () => import ('@/components/Stock')
+                 default: () => import ('@/components/StockIn')
+                }
+            },
+            {
+                path: '/stock-out',
+                components: {
+                 Header: Header,
+                 default: () => import ('@/components/StockOut')
                 }
             }
         ]

@@ -1,16 +1,12 @@
 package com.github.mengweijin.relx.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.mengweijin.relx.entity.Stock;
-import com.github.mengweijin.relx.entity.StockDetail;
-import com.github.mengweijin.relx.service.StockDetailService;
-import com.github.mengweijin.relx.service.StockService;
-import com.github.mengweijin.relx.vo.StockVO;
+import com.github.mengweijin.relx.entity.StockIn;
+import com.github.mengweijin.relx.service.StockInService;
 import lombok.extern.slf4j.Slf4j;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * <p>
  * 入库记录表 Controller
@@ -37,8 +30,8 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/stock")
-public class StockController {
+@RequestMapping("/stock-in")
+public class StockInController {
 
     /**
      * <p>
@@ -46,7 +39,7 @@ public class StockController {
      * </p>
      */
     @Autowired
-    private StockService stockService;
+    private StockInService stockInService;
 
     /**
      * <p>
@@ -56,8 +49,8 @@ public class StockController {
      * @return Stock
      */
     @GetMapping("/{id}")
-    public Stock getById(@Valid @PathVariable("id") Long id) {
-        return stockService.getById(id);
+    public StockIn getById(@Valid @PathVariable("id") Long id) {
+        return stockInService.getById(id);
     }
 
     /**
@@ -65,43 +58,43 @@ public class StockController {
      * Get Stock page list by Stock
      * </p>
      * @param page page
-     * @param stock stock
+     * @param stockIn stock
      * @return IPage<Stock>
      */
     @GetMapping
-    public IPage<Stock> getPage(IPage<Stock> page, Stock stock) {
-        return stockService.page(page, new QueryWrapper<>(stock));
+    public IPage<StockIn> getPage(IPage<StockIn> page, StockIn stockIn) {
+        return stockInService.page(page, new QueryWrapper<>(stockIn));
     }
 
     @GetMapping("/details")
-    public List<StockVO> getStockDetails(IPage<Stock> page, Stock stock) {
-        return stockService.getStockDetails(page, stock);
+    public IPage<StockIn> getStockDetails(IPage<StockIn> page, StockIn stockIn) {
+        return stockInService.getStockDetails(page, stockIn);
     }
     /**
      * <p>
      * Add Stock
      * </p>
-     * @param stock stock
+     * @param stockIn stock
      */
     @PostMapping
-    public void add(@Valid @RequestBody Stock stock) {
-        stockService.save(stock);
+    public void add(@Valid @RequestBody StockIn stockIn) {
+        stockInService.save(stockIn);
     }
 
     @PostMapping("/details")
-    public void addStockDetails(@Valid @NotNull @RequestBody List<@Valid StockDetail> stockDetailList) {
-        stockService.addStockDetails(stockDetailList);
+    public void addStockDetails(@Valid @NotNull @RequestBody StockIn stockIn) {
+        stockInService.addStockDetails(stockIn);
     }
 
     /**
      * <p>
      * Update Stock
      * </p>
-     * @param stock stock
+     * @param stockIn stock
      */
     @PutMapping
-    public void update(@Valid @RequestBody Stock stock) {
-        stockService.updateById(stock);
+    public void update(@Valid @RequestBody StockIn stockIn) {
+        stockInService.updateById(stockIn);
     }
 
     /**
@@ -112,7 +105,7 @@ public class StockController {
      */
     @DeleteMapping("/{id}")
     public void delete(@Valid @PathVariable("id") Long id) {
-        stockService.removeById(id);
+        stockInService.removeById(id);
     }
 
 }
