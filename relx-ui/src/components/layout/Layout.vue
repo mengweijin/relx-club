@@ -9,7 +9,7 @@
 
       <el-footer>
         <div>
-            <span style="color: #f313b9; font-size: 20px; width: 100px; margin-right: 20px;">RELX 悦享</span>
+            <span style="color: #f313b9; font-size: 20px; width: 100px; margin-right: 20px;">RELX 悦刻</span>
             <span>联系作者: </span>
             <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1002284406&site=qq&menu=yes" style="margin-right: 20px;">
                 <i class="fa fa-qq"></i>

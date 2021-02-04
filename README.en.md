@@ -1,22 +1,38 @@
 # relx-club-invoicing-management-system
 
 #### Description
-悦享电子烟 RELX Club Invoicing management system
-![image](docs/image/relx-index.png)
-#### Software Architecture
-Software architecture description
+悦刻 RELX Club Invoicing management system
+
+#### Software Technology
+* Front-end：Vue3, Element-Plus
+* Back-end：SpringBoot, MyBatis-Plus
+* Container Deployment：Docker, Nginx, Tomcat
 
 #### Installation
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. Install docker
+   * linux or windows professional edition system reference https://docs.docker.com docker individual mounting part.
+   * windows home edition system reference：https://docs.docker.com/docker-for-windows/install-windows-home/
 
-#### Instructions
+Note: Remember to configure the domestic Docker source, otherwise the download image will be very slow.
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+2.  Install the front-end UI：
+````
+$ docker run --name relx-ui --restart=always -p 80:80 -d registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-ui:latest
+````
+3.  Install back-end services：
+````
+$ docker run --name relx-club-invoicing-management-system --restart=always -d -p 8081:8081 registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club-invoicing-management-system:latest
+````
+4. visvit page: http://localhost:80
+
+#### Web Presentation
+![image](docs/image/goods_list.png)
+![image](docs/image/goods_edit.png)
+![image](docs/image/stock_in_list.png)
+![image](docs/image/stock_in_add.png)
+![image](docs/image/stock_out_list.png)
+![image](docs/image/stock_out_add.png)
 
 #### Contribution
 
@@ -24,13 +40,3 @@ Software architecture description
 2.  Create Feat_xxx branch
 3.  Commit your code
 4.  Create Pull Request
-
-
-#### Gitee Feature
-
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
