@@ -14,7 +14,7 @@ EXPOSE 8081
 
 # docker build -t relx-club-invoicing-management-system:latest .
 
-# docker login --username=mengweijin@aliyun.com registry.cn-hangzhou.aliyuncs.com
+# docker login --username=***@**.com registry.cn-hangzhou.aliyuncs.com
 # docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club-invoicing-management-system:[镜像版本号]
 # docker push registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club-invoicing-management-system:[镜像版本号]
 

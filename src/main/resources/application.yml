@@ -16,13 +16,6 @@ server:
     context-path: /
   tomcat:
     uri-encoding: UTF-8
-  ssl:
-    enabled: false
-    key-store: classpath:test.jks
-    # key-store: C:\Users\mengweijin\test.jks
-    key-store-password: 123456
-    key-store-type: JKS
-    key-alias: test
 spring:
   profiles:
     active: dev
