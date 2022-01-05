@@ -5,7 +5,7 @@ axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // axios中请求配置有baseURL选项，表示请求URL公共部分
 axios.defaults.baseURL = process.env.VUE_APP_RESTFUL_URL
 
-// 超时
+// 超时，单位：秒
 axios.defaults.timeout = 5000
 
 // 添加请求拦截器。在发送请求之前做些什么
