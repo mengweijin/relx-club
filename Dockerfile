@@ -1,7 +1,7 @@
 FROM java:8
 MAINTAINER Meng Wei Jin mengweijin.work@foxmail.com
 
-ARG JAR_ARTIFACT_ID='relx-club-invoicing-management-system'
+ARG JAR_ARTIFACT_ID='relx-club'
 ARG JAR_VERSION='0.0.1-SNAPSHOT'
 ARG JAR_NAME=${JAR_ARTIFACT_ID}-${JAR_VERSION}.jar
 
