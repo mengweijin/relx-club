@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // axios中请求配置有baseURL选项，表示请求URL公共部分
-axios.defaults.baseURL = process.env.VUE_APP_RESTFUL_URL
+//axios.defaults.baseURL = process.env.VUE_APP_RESTFUL_URL
 
 // 超时，单位：秒
 axios.defaults.timeout = 5000

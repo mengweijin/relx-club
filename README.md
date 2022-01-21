@@ -15,14 +15,11 @@
     
 注意：记得配置国内docker源，否则下载镜像的速度非常慢。
 
-2.  安装前端UI：
+2.  安装
 ````
-$ docker run --name relx-ui --restart=always -p 80:80 -d registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-ui:latest
+$ docker run --name relx-club --restart=always -p 9003:8081 -d registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club:latest
 ````
-3.  安装后端服务：
-````
-$ docker run --name relx-club-invoicing-management-system --restart=always -d -p 8081:8081 registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club-invoicing-management-system:latest
-````
+
 4. 访问页面 http://localhost:80
 
 #### 页面展示
