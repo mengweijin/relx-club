@@ -9,18 +9,12 @@
 		<relativePath/>
 	</parent>
 
-	<artifactId>relx-club-invoicing-management-system</artifactId>
+	<artifactId>relx-club</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>relx-club-invoicing-management-system</name>
+	<name>relx-club</name>
 	<description>RELX Club Invoicing management system</description>
 
-	<properties>
-
-
-	</properties>
-
 	<dependencies>
-
 		<dependency>
 			<groupId>com.github.mengweijin</groupId>
 			<artifactId>quickboot-mybatis-plus</artifactId>
