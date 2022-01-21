@@ -1,7 +1,7 @@
-# relx-club-invoicing-management-system
+# relx-club
 
 #### 介绍
-悦刻 RELX Club Invoicing management system
+悦刻 RELX Club
 
 #### 软件技术
 * 前端：Vue3, Element-Plus
@@ -20,7 +20,7 @@
 $ docker run --name relx-club --restart=always -p 9003:8081 -d registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club:latest
 ````
 
-4. 访问页面 http://localhost:80
+4. 访问页面 http://{ip地址}:9003
 
 #### 页面展示
 ![image](docs/image/goods_list.png)
