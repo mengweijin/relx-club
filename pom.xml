@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.github.mengweijin</groupId>
 		<artifactId>quickboot-parent</artifactId>
-		<version>1.0.21</version>
+		<version>1.0.37-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 
@@ -30,7 +30,11 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -39,82 +43,73 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<!--found character '@' that cannot start any token. (Do not use @ for indentation) 出现这个问题需要设置为 true-->
-				<!--配置 ssl 双向认证时出现 java.io.IOException:Invalid keystore format 出现这个问题需要设置为 false-->
-				<!--这便出现矛盾了，先去掉 application.yaml 中的 info.app 下的配置-->
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
+<!--		<resources>-->
+<!--			<resource>-->
+<!--				&lt;!&ndash;found character '@' that cannot start any token. (Do not use @ for indentation) 出现这个问题需要设置为 true&ndash;&gt;-->
+<!--				&lt;!&ndash;配置 ssl 双向认证时出现 java.io.IOException:Invalid keystore format 出现这个问题需要设置为 false&ndash;&gt;-->
+<!--				&lt;!&ndash;这便出现矛盾了，先去掉 application.yaml 中的 info.app 下的配置&ndash;&gt;-->
+<!--				<directory>src/main/resources</directory>-->
+<!--				<filtering>true</filtering>-->
+<!--			</resource>-->
+<!--		</resources>-->
 
 		<plugins>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<nonFilteredFileExtensions>
-						<!-- 支持字体库 -->
-						<!--vue element-ui icon打包后放在springboot中icon没有显示的问题-->
-						<!--参考博客（只需要看后半段，前半段不对）：https://blog.csdn.net/dylin83/article/details/115090256-->
-						<!--上面的配置就造成了springboot 用maven打包时把resource进行了filter，字库文件被修改了！！-->
-						<!--解决方案：让ttf和woff文件不要filter-->
-						<!-- 不要过滤字体库，会造成字体库内容变化，显示不了 -->
-						<nonFilteredFileExtension>woff</nonFilteredFileExtension>
-						<nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-						<nonFilteredFileExtension>eot</nonFilteredFileExtension>
-						<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-						<nonFilteredFileExtension>svg</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
-				</configuration>
-				<version>3.0.2</version>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-resources-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<nonFilteredFileExtensions>-->
+<!--						&lt;!&ndash; 支持字体库 &ndash;&gt;-->
+<!--						&lt;!&ndash;vue element-ui icon打包后放在springboot中icon没有显示的问题&ndash;&gt;-->
+<!--						&lt;!&ndash;参考博客（只需要看后半段，前半段不对）：https://blog.csdn.net/dylin83/article/details/115090256&ndash;&gt;-->
+<!--						&lt;!&ndash;上面的配置就造成了springboot 用maven打包时把resource进行了filter，字库文件被修改了！！&ndash;&gt;-->
+<!--						&lt;!&ndash;解决方案：让ttf和woff文件不要filter&ndash;&gt;-->
+<!--						&lt;!&ndash; 不要过滤字体库，会造成字体库内容变化，显示不了 &ndash;&gt;-->
+<!--						<nonFilteredFileExtension>woff</nonFilteredFileExtension>-->
+<!--						<nonFilteredFileExtension>woff2</nonFilteredFileExtension>-->
+<!--						<nonFilteredFileExtension>eot</nonFilteredFileExtension>-->
+<!--						<nonFilteredFileExtension>ttf</nonFilteredFileExtension>-->
+<!--						<nonFilteredFileExtension>svg</nonFilteredFileExtension>-->
+<!--					</nonFilteredFileExtensions>-->
+<!--				</configuration>-->
+<!--				<version>3.0.2</version>-->
+<!--			</plugin>-->
 			<plugin>
 				<groupId>com.github.mengweijin</groupId>
 				<artifactId>code-generator-maven-plugin</artifactId>
-				<version>1.0.4</version>
+				<version>1.0.11</version>
 				<configuration>
 					<parameters>
-						<tables>RELX_STOCK_OUT</tables>
-						<tablePrefix>relx_</tablePrefix>
-						<superEntityClass>com.github.mengweijin.quickboot.mybatis.BaseEntity</superEntityClass>
-						<outputPackage>com.github.mengweijin.relx</outputPackage>
+						<tables>SYS_USER</tables>
+						<tablePrefix>sys_</tablePrefix>
+						<superEntityClass>com.github.mengweijin.quickboot.mybatis.entity.BaseEntity</superEntityClass>
+						<lombokModel>true</lombokModel>
+						<dbInfo>
+							<username>sa</username>
+							<password/>
+							<url>jdbc:h2:file:./../h2/quickboot;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>
+							<!--<url>jdbc:h2:file:C:/Source/code/gitee/quickboot/h2/quickboot;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MODE=MYSQL</url>-->
+						</dbInfo>
 					</parameters>
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<!--found character '@' that cannot start any token. (Do not use @ for indentation)-->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<delimiters>@</delimiters>
-					<useDefaultDelimiters>false</useDefaultDelimiters>
-				</configuration>
-			</plugin>
+<!--			<plugin>-->
+<!--				&lt;!&ndash;found character '@' that cannot start any token. (Do not use @ for indentation)&ndash;&gt;-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-resources-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<delimiters>@</delimiters>-->
+<!--					<useDefaultDelimiters>false</useDefaultDelimiters>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${springboot.version}</version>
-				<configuration>
-					<fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<!-- 将所有依赖包全部打到一个Jar包里面 -->
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
+				<version>${spring.boot.version}</version>
 			</plugin>
 		</plugins>
-
-		<!-- 最终打出来的Jar的名称 -->
-		<!--<finalName>${project.artifactId}</finalName>-->
 	</build>
-
 </project>

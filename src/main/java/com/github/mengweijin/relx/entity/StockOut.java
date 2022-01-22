@@ -1,15 +1,14 @@
 package com.github.mengweijin.relx.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.math.BigDecimal;
-import java.sql.Clob;
-import java.util.List;
-
-import com.github.mengweijin.quickboot.mybatis.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>

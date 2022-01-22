@@ -1,21 +1,16 @@
 package com.github.mengweijin.relx.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
-import java.math.BigDecimal;
-
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.github.mengweijin.quickboot.mybatis.BaseEntity;
+import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * <p>

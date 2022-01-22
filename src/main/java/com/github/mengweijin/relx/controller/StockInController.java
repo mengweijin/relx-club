@@ -1,23 +1,24 @@
 package com.github.mengweijin.relx.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.mengweijin.quickboot.mybatis.Pager;
 import com.github.mengweijin.relx.entity.StockIn;
 import com.github.mengweijin.relx.service.StockInService;
 import lombok.extern.slf4j.Slf4j;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -57,18 +58,20 @@ public class StockInController {
      * <p>
      * Get Stock page list by Stock
      * </p>
-     * @param page page
+     * @param pager pager
      * @param stockIn stock
      * @return IPage<Stock>
      */
     @GetMapping
-    public IPage<StockIn> getPage(IPage<StockIn> page, StockIn stockIn) {
-        return stockInService.page(page, new QueryWrapper<>(stockIn));
+    public Pager<StockIn> getPage(Pager<StockIn> pager, StockIn stockIn) {
+        final IPage<StockIn> page = stockInService.page(pager.toPage(), new QueryWrapper<>(stockIn));
+        return pager.toPager(page);
     }
 
     @GetMapping("/details")
-    public IPage<StockIn> getStockInDetails(IPage<StockIn> page, StockIn stockIn) {
-        return stockInService.getStockInDetails(page, stockIn);
+    public Pager<StockIn> getStockInDetails(Pager<StockIn> pager, StockIn stockIn) {
+        IPage<StockIn> page = stockInService.getStockInDetails(pager.toPage(), stockIn);
+        return pager.toPager(page);
     }
     /**
      * <p>

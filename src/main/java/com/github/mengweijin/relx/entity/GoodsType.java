@@ -1,19 +1,14 @@
 package com.github.mengweijin.relx.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
-
-import com.github.mengweijin.quickboot.mybatis.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.mengweijin.quickboot.mybatis.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 /**
  * <p>

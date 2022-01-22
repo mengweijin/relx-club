@@ -1,22 +1,24 @@
 package com.github.mengweijin.relx.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.mengweijin.quickboot.mybatis.Pager;
 import com.github.mengweijin.relx.entity.Goods;
 import com.github.mengweijin.relx.mapper.GoodsMapper;
 import com.github.mengweijin.relx.service.GoodsService;
 import lombok.extern.slf4j.Slf4j;
-import javax.validation.Valid;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -65,13 +67,14 @@ public class GoodsController {
      * <p>
      * Get Goods page list by Goods
      * </p>
-     * @param page page
+     * @param pager pager
      * @param goods goods
      * @return IPage<Goods>
      */
     @GetMapping
-    public IPage<Goods> getPage(IPage<Goods> page, Goods goods) {
-        return goodsMapper.selectPageVO(page, goods);
+    public Pager<Goods> getPage(Pager<Goods> pager, Goods goods) {
+        IPage<Goods> page = goodsMapper.selectPageVO(pager.toPage(), goods);
+        return pager.toPager(page);
     }
 
     /**

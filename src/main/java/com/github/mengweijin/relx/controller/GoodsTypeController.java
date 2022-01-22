@@ -1,22 +1,23 @@
 package com.github.mengweijin.relx.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.mengweijin.quickboot.mybatis.Pager;
 import com.github.mengweijin.relx.entity.GoodsType;
 import com.github.mengweijin.relx.service.GoodsTypeService;
 import lombok.extern.slf4j.Slf4j;
-import javax.validation.Valid;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -57,13 +58,14 @@ public class GoodsTypeController {
      * <p>
      * Get GoodsType page list by GoodsType
      * </p>
-     * @param page page
+     * @param pager pager
      * @param goodsType goodsType
      * @return IPage<GoodsType>
      */
     @GetMapping
-    public IPage<GoodsType> getPage(IPage<GoodsType> page, GoodsType goodsType) {
-        return goodsTypeService.page(page, new QueryWrapper<>(goodsType));
+    public Pager<GoodsType> getPage(Pager<GoodsType> pager, GoodsType goodsType) {
+        IPage<GoodsType> page = goodsTypeService.page(pager.toPage(), new QueryWrapper<>(goodsType));
+        return pager.toPager(page);
     }
 
     @GetMapping("/all")

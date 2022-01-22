@@ -2,21 +2,19 @@ package com.github.mengweijin.relx.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.github.mengweijin.quickboot.framework.exception.ClientException;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.mengweijin.quickboot.framework.exception.QuickBootClientException;
 import com.github.mengweijin.relx.entity.Goods;
 import com.github.mengweijin.relx.entity.GoodsType;
-import com.github.mengweijin.relx.entity.StockIn;
-import com.github.mengweijin.relx.entity.StockInDetail;
+import com.github.mengweijin.relx.entity.StockOut;
 import com.github.mengweijin.relx.entity.StockOutDetail;
 import com.github.mengweijin.relx.mapper.StockOutDetailMapper;
+import com.github.mengweijin.relx.mapper.StockOutMapper;
 import com.github.mengweijin.relx.service.GoodsService;
 import com.github.mengweijin.relx.service.GoodsTypeService;
 import com.github.mengweijin.relx.service.StockOutDetailService;
-import lombok.extern.slf4j.Slf4j;
-import com.github.mengweijin.relx.entity.StockOut;
-import com.github.mengweijin.relx.mapper.StockOutMapper;
 import com.github.mengweijin.relx.service.StockOutService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,7 +81,7 @@ public class StockOutServiceImpl extends ServiceImpl<StockOutMapper, StockOut> i
                 goodsType = goodsTypeService.getById(goods.getGoodsTypeId());
                 String message = "商品库存不足！商品类型：" + goodsType.getName() + "; 商品名称：" + goods.getName() +
                         "; 剩余库存：" + goods.getAmount();
-                throw new ClientException(message);
+                throw new QuickBootClientException(message);
             }
             goods.setAmount(goods.getAmount() - stockOutDetail.getAmount());
             goodsService.updateById(goods);
