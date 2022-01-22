@@ -17,5 +17,5 @@ EXPOSE 8080
 # docker login --username=***@**.com registry.cn-hangzhou.aliyuncs.com
 # docker push registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club:latest
 
-# docker run --name relx-club -d -p 9003:8081 registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club:latest
+# docker run --name relx-club -d -p 9003:8080 registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club:latest
 
