@@ -10,7 +10,7 @@ COPY target/${JAR_NAME} /app/application.jar
 
 RUN bash -c 'touch /app/application.jar'
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/application.jar"]
-EXPOSE 8081
+EXPOSE 8080
 
 # docker build -t registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club:latest .
 

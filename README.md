@@ -17,7 +17,7 @@
 
 2.  安装
 ````
-$ docker run --name relx-club --restart=always -p 9003:8081 -d registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club:latest
+$ docker run --name relx-club --restart=always -p 9003:8080 -d registry.cn-hangzhou.aliyuncs.com/mengweijin/relx-club:latest
 ````
 
 4. 访问页面 http://{ip地址}:9003
