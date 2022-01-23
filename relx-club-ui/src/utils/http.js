@@ -79,12 +79,12 @@ axiosInstance.interceptors.response.use(
 /**
  * get 请求方法，添加了全屏遮罩层
  * @param {String} url
- * @param {Object} params
+ * @param {Object} config 比如传入参数：let config = {params: {userId: 123}}
  */
-axiosInstance.loading = async function(url, params = {}) {
+axiosInstance.loading = async function(url, config) {
     // 添加全屏遮罩层
     let loadingInstance = ElLoading.service()
-    const response = await axiosInstance.get(url, { params: params });
+    const response = await axiosInstance.get(url, config);
     // 拿到结果后，关闭遮罩层
     loadingInstance.close();
     // 原样返回结果
