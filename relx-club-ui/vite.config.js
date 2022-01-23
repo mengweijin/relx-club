@@ -7,7 +7,7 @@ export default defineConfig({
     plugins:[vue()], // 配置需要使用的插件列表，这里将vue添加进去
     // 配置文件别名
     // https://cn.vitejs.dev/config/#resolve-alias
-    // 这里是将src目录配置别名为 /@ 方便在项目中导入src目录下的文件
+    // 这里是将src目录配置别名为 @ 方便在项目中导入src目录下的文件
     resolve: {
         alias: {
             // 设置路径
