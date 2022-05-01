@@ -1,3 +1,6 @@
+server:
+  servlet:
+    context-path: /api
 info:
   app:
     parentGroupId: @project.parent.groupId@
