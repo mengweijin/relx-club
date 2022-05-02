@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import Layout from '../components/layout/Layout.vue'
 import Header from '../components/Header.vue'
 
@@ -48,8 +48,11 @@ const routes = [
     }
   ]
 
+// 路由根路径：'/relx/';
+// 部署到 nginx 服务器下，我们可以使用 createWebHistory 来去掉 url 中的 #
+// 但如果要打包并部署到 springboot 下的 static 目录，只能用 createWebHashHistory 才不会有问题。
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory('/relx/'),
     routes, 
 })
 
